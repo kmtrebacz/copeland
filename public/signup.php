@@ -5,7 +5,7 @@
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>SIGN UP - Copeland - Drum sets configurator</title>
-     <link rel="stylesheet" href="./../css/main.css">
+     <?php include_once './../includes/bootstrap_css.html'; ?>
 </head>
 
 <body>
@@ -35,7 +35,7 @@
      include_once './../includes/footer.html';
      ?>
 
-     <script src="./../bootstrap/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<?php include_once './../includes/bootstrap_js.html'; ?>
 </body>
 
 </html>
