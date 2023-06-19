@@ -11,7 +11,7 @@
 <body>
 
      <?php
-     require './../includes/header/unlogged.html';
+     include_once './../includes/header/unlogged.html';
      ?>
 
      <main class="container py-3">
@@ -19,7 +19,7 @@
      </main>
 
      <?php
-     require './../includes/footer.html';
+     include_once './../includes/footer.html';
      ?>
      <script src="./../bootstrap/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
