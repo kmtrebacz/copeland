@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +15,12 @@
 <body>
 
      <?php
-     include_once './../includes/header/unlogged.html';
+     if (isset($_SESSION["userid"])) {
+          include_once './../includes/header/logged.html';
+     }
+     else {
+          include_once './../includes/header/unlogged.html';
+     }
      ?>
 
      <main class="container py-3">

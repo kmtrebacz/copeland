@@ -23,9 +23,23 @@ function passMatch($pass, $r_password) {
      return $result;
 }
 
-function uidExists($name, $email, $conn) {
+function uidExists($name, $conn) {
      $result = false;
-     $sql = "SELECT * FROM users WHERE username = '$name' OR email = '$email'";
+     $sql = "SELECT * FROM users WHERE username = '$name'";
+
+     $result = $conn->query($sql);
+     
+     if ($result->num_rows > 0) {
+          $result = true;
+     }
+     
+     return $result;
+     
+}
+
+function emailExists($email, $conn) {
+     $result = false;
+     $sql = "SELECT * FROM users WHERE email = '$email'";
 
      $result = $conn->query($sql);
      
@@ -46,17 +60,48 @@ function createUser($name, $pass, $email, $conn) {
          die("Error preparing statement: " . $conn->error);
      }
  
-     $stmt->bind_param("sss", $name, $pass, $email);
+     $hashedPass = password_hash($pass, PASSWORD_DEFAULT);
+
+     $stmt->bind_param("sss", $name, $hashedPass, $email);
  
      if ($stmt->execute()) {
-         echo "User created successfully!";
+          header("location: ./../signup.php?error=none");
      } else {
-         echo "Error creating user: " . $stmt->error;
+          header("location: ./../signup.php?error=stmtfailed");
      }
  
      $stmt->close();
      $conn->close();
 
-     header("location: ./../signup.php?error=none");
      exit();
+}
+
+function loginUser($conn, $name, $pass) {
+     $uidExists = uidExists($name, $conn);
+
+     if ($uidExists === false) {
+          header("location: ./../login.php?error=wronglogin");
+          exit();
+     }
+
+     $sql = "SELECT password FROM users WHERE username = '$name'";
+     $result = $conn->query($sql);
+
+     if ($result->num_rows > 0) {
+          $row = $result->fetch_assoc();
+          $passHash = $row["password"];
+     }
+
+     $checkPass = password_verify($pass, $passHash);
+
+     if ($checkPass === false) {
+         header("location: ./../login.php?error=wronglogin");
+         exit();
+     }
+     else if($checkPass === true)  {
+          session_start();
+          $_SESSION["userid"] = $uidExists["name"];
+          header("location: ./../index.php");
+          exit();
+     }
 }

@@ -16,6 +16,33 @@
      <main class="container py-3">
           <div class="col-10 col-lg-3 mx-auto">
                <h3 class="text-center">SIGN UP</h3>
+
+               <?php
+               if (isset($_GET["error"])) {
+                    if ($_GET["error"] == "invaliduid"){
+                         echo "<p><strong>Choose a proper username!</strong></p>";
+                    }
+                    else if ($_GET["error"] == "invalidemail"){
+                         echo "<p><strong>Choose a proper email!</strong></p>";
+                    }
+                    else if ($_GET["error"] == "passwordsdontmatch"){
+                         echo "<p><strong>Passwords doesn't match!</strong></p>";
+                    }
+                    else if ($_GET["error"] == "usernametaken"){
+                         echo "<p><strong>This username is already associated with an existing account!</strong></p>";
+                    } 
+                    else if ($_GET["error"] == "emailwasused"){
+                         echo "<p><strong>This email address is already associated with an existing account!</strong></p>";
+                    }
+                    else if ($_GET["error"] == "stmtfaild"){
+                         echo "<p><strong>Somethink went wrong, try again!</strong></p>";
+                    }
+                    else if ($_GET["error"] == "none"){
+                         echo "<p><strong>You have signed up!</strong></p>";
+                    }
+               }
+               ?>
+
                <form action="./php_inc/singup.inc.php" method="POST">
                     <input type="text" name="name" id="name" required class="form-control my-2" placeholder="Username">
                     

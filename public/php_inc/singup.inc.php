@@ -20,8 +20,12 @@ if (isset($_POST['submit'])) {
         header("location: ./../signup.php?error=passwordsdontmatch");
         exit();
     }
-    if (uidExists($name, $email, $conn) === true) {
+    if (uidExists($name, $conn) === true) {
         header("location: ./../signup.php?error=usernametaken");
+        exit();
+    }
+    if (emailExists($email, $conn) === true) {
+        header("location: ./../signup.php?error=emailwasused");
         exit();
     }
 

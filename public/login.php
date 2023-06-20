@@ -15,20 +15,27 @@
      ?>
      <main class="container py-3">
 
-          <form action="login.php" method="POST">
-               <div class="col-10 col-lg-3 mx-auto">
-                    <h3 class="text-center">LOGIN</h3>
-                    <div class="form-floating my-2">
-                         <input type="text" id="username" name="username" required class="form-control" placeholder="Username">
-                         <label for="floatingInput">Username</label>
-                    </div>
-                    <div class="form-floating my-2">
-                         <input type="password" id="password" name="password" required class="form-control" placeholder="Password">
-                         <label for="password">Password</label>
-                    </div>
-                    <button class="w-100 btn btn-lg btn-primary my-2" type="submit">Sign in</button>
-               </div>
-          </form>
+
+          <div class="col-10 col-lg-3 mx-auto">
+               <h3 class="text-center">LOGIN</h3>
+
+               <?php
+               if (isset($_GET["error"])) {
+                    if ($_GET["error"] == "wronglogin") {
+                         echo "<p><strong>Incorrect login information!</strong></p>";
+                    }
+               }
+               ?>
+
+               <form action="./php_inc/login.inc.php" method="POST">
+                    <input type="text" id="name" name="name" required class="form-control my-2" placeholder="Username">
+                    
+                    <input type="password" id="password" name="password" required class="form-control my-2" placeholder="Password">
+
+                    <button class="w-100 btn btn-lg btn-primary my-2" type="submit" name="submit">Sign in</button>
+               </form>
+          </div>
+
 
      </main>
 
