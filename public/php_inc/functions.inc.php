@@ -100,7 +100,7 @@ function loginUser($conn, $name, $pass) {
      }
      else if($checkPass === true)  {
           session_start();
-          $_SESSION["userid"] = $uidExists["name"];
+          $_SESSION['userid'] = $name;
           header("location: ./../index.php");
           exit();
      }

@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +15,7 @@
 <body>
 
      <?php
-     include_once './../includes/header/unlogged.html';
+     include_once './../includes/header/header_choosed.inc.php';
      ?>
 
      <main class="container py-3">

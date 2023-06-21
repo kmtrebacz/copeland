@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+if (!isset($_SESSION["userid"])) {
+    header("location: ./../index.php");
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -8,7 +13,7 @@ session_start();
 <head>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>ABOUT - Copeland - Drum sets configurator</title>
+     <title>MY PROFILE - Copeland - Drum sets configurator</title>
      <?php include_once './../includes/bootstrap_css.html'; ?>
 </head>
 
@@ -26,7 +31,7 @@ session_start();
      include_once './../includes/footer.html';
      ?>
 
-     <?php include_once './../includes/bootstrap_js.html'; ?>
+<?php include_once './../includes/bootstrap_js.html'; ?>
 </body>
 
 </html>

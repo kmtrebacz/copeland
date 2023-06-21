@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,8 +15,9 @@
 <body>
 
      <?php
-     include_once './../includes/header/unlogged.html';
+     include_once './../includes/header/header_choosed.inc.php';
      ?>
+     
      <main class="container py-3">
           <div class="col-10 col-lg-3 mx-auto">
                <h3 class="text-center">SIGN UP</h3>
