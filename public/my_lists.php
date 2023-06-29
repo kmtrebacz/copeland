@@ -37,20 +37,37 @@ if (!isset($_SESSION["userid"])) {
                $user_id = $row["user_id"];
           }
 
-          $query = "SELECT list_name, is_public FROM lists WHERE list_id = " . $user_id;
+          $query = "SELECT list_name, is_public FROM lists WHERE user_id = " . $user_id;
           $result = $conn->query($query);
 
           if ($result->num_rows > 0) {
                echo '<div class="row">';
 
                while ($row = $result->fetch_assoc()) {
-                    echo
-                    '<div class="card col-10 col-lg-4">
-                    <div class="card-body">
-                    <h5 class="card-title">' . $row['list_name'] . '</h5>
-                    <a class="link-offset-1 mt-1" href="#">See more</a>
-                    </div>
-                    </div>';
+                    if ($row['is_public'] == 0) {
+                         echo
+                         '<div class="px-2 col-10 col-lg-4">
+                         <div class="card">
+                         <div class="card-body">
+                         <h4 class="m-0" class="card-title">' . $row['list_name'] . '</h4>
+                         <p class="my-2" style="font-size: 15px;"><i class="bi bi-lock"></i> Private</p>
+                         <a class="link-offset-1 mt-1" href="#">See more</a>
+                         </div>
+                         </div>
+                         </div>';
+                    }
+                    else if ($row['is_public'] == 1)  {
+                         echo
+                         '<div class="px-2 col-10 col-lg-4">
+                         <div class="card">
+                         <div class="card-body">
+                         <h4 class="m-0" class="card-title">' . $row['list_name'] . '</h4>
+                         <p class="my-2" style="font-size: 15px;"><i class="bi bi-globe2"></i> Public</p>
+                         <a class="link-offset-1 mt-1" href="#">See more</a>
+                         </div>
+                         </div>
+                         </div>';
+                    }
                }
                echo '</div>';
           } else {
