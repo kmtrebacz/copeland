@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 30, 2023 at 01:04 AM
+-- Generation Time: Jun 29, 2023 at 12:29 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -31,37 +31,6 @@ CREATE TABLE `categories` (
   `category_id` int(11) NOT NULL,
   `category_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `categories`
---
-
-INSERT INTO `categories` (`category_id`, `category_name`) VALUES
-(1, 'drum_set'),
-(2, 'snare'),
-(3, 'drumsticks'),
-(4, 'bass_drum_pedal'),
-(5, 'drum_throne'),
-(6, 'straight_stand'),
-(7, 'boom_stand'),
-(8, 'snare_stand'),
-(9, 'hi_hat_stand'),
-(10, 'combined_stand'),
-(11, 'tom_stand'),
-(12, 'multi_clamp'),
-(13, 'tom_holder'),
-(14, 'drum_racks'),
-(15, 'snare_drumhead'),
-(16, 'tom_drumhead'),
-(17, 'bass_drum_drumhead'),
-(18, 'splash_cymbal'),
-(19, 'crash_cymbal'),
-(20, 'ride_cymbal'),
-(21, 'hi_hat_cymbal'),
-(22, 'china_cymbal'),
-(23, 'bell_cymbal'),
-(24, 'fx_cymbal'),
-(25, 'gong_cymbal');
 
 -- --------------------------------------------------------
 
@@ -92,14 +61,6 @@ CREATE TABLE `lists` (
   `list_view_count` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `lists`
---
-
-INSERT INTO `lists` (`list_id`, `user_id`, `list_name`, `is_public`, `created_at`, `list_view_count`) VALUES
-(2, 3, 'test', 1, '2023-06-29 13:44:27', 0),
-(3, 3, 'test_1', 0, '2023-06-29 13:56:56', 0);
-
 -- --------------------------------------------------------
 
 --
@@ -126,13 +87,6 @@ CREATE TABLE `users` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `user_view_count` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`user_id`, `username`, `password`, `email`, `created_at`, `updated_at`, `user_view_count`) VALUES
-(3, 'kt', '$2y$10$Qcm1.wmsxxJiwJL4npXomuUlg1dypLQSVOqdkw5zSGilr2bkQ85H2', 'kacperkapitrebacz@gmail.com', '2023-06-29 13:39:43', '2023-06-29 13:39:43', 0);
 
 --
 -- Indexes for dumped tables
@@ -179,7 +133,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `items`
@@ -191,13 +145,13 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `lists`
 --
 ALTER TABLE `lists`
-  MODIFY `list_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `list_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
