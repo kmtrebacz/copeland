@@ -92,14 +92,6 @@ CREATE TABLE `lists` (
   `list_view_count` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `lists`
---
-
-INSERT INTO `lists` (`list_id`, `user_id`, `list_name`, `is_public`, `created_at`, `list_view_count`) VALUES
-(2, 3, 'test', 1, '2023-06-29 13:44:27', 0),
-(3, 3, 'test_1', 0, '2023-06-29 13:56:56', 0);
-
 -- --------------------------------------------------------
 
 --
@@ -127,12 +119,6 @@ CREATE TABLE `users` (
   `user_view_count` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`user_id`, `username`, `password`, `email`, `created_at`, `updated_at`, `user_view_count`) VALUES
-(1, 'test', '$2y$10$Qcm1.wmsxxJiwJL4npXomuUlg1dypLQSVOqdkw5zSGilr2bkQ85H2', 'd@d.d', '2023-06-29 13:39:43', '2023-06-29 13:39:43', 0);
 
 --
 -- Indexes for dumped tables
