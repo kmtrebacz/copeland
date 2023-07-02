@@ -132,7 +132,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `username`, `password`, `email`, `created_at`, `updated_at`, `user_view_count`) VALUES
-(3, 'kt', '$2y$10$Qcm1.wmsxxJiwJL4npXomuUlg1dypLQSVOqdkw5zSGilr2bkQ85H2', 'kacperkapitrebacz@gmail.com', '2023-06-29 13:39:43', '2023-06-29 13:39:43', 0);
+(1, 'test', '$2y$10$Qcm1.wmsxxJiwJL4npXomuUlg1dypLQSVOqdkw5zSGilr2bkQ85H2', 'd@d.d', '2023-06-29 13:39:43', '2023-06-29 13:39:43', 0);
 
 --
 -- Indexes for dumped tables
