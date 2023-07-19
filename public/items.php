@@ -31,10 +31,15 @@ session_start();
                while ($row = $result->fetch_assoc()) {
                     echo '<div class="px-2 col-10 col-lg-4 mx-auto mx-lg-0 my-2">
                     <div class="card">
-                    <div class="card-body">
+                    <div class="card-body row">
+                    <div class="col-9">
                     <h4 class="m-0" class="card-title">' . $row['item_name'] . '</h4>
                     <p class="my-2" style="font-size: 15px;">CATEGORY: ' . $row['category_name'] . '</p>
                     <p class="my-2" style="font-size: 15px;">SIZE: ' . $row['size'] . '</p>
+                    </div>
+                    <div class="col-3 d-flex align-items-center justify-content-center">
+                    <button type="button" class="btn btn-primary">+</button>
+                    </div>
                     </div>
                     </div>
                     </div>';
