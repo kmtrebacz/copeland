@@ -57,10 +57,15 @@ session_start();
                     foreach ($randomItems as $item) {
                          echo '<div class="px-2 col-10 col-lg-4 mx-auto mx-lg-0 my-2">
                     <div class="card">
-                    <div class="card-body">
+                    <div class="card-body row">
+                    <div class="col-9">
                     <h4 class="m-0" class="card-title">' . $item['item_name'] . '</h4>
                     <p class="my-2" style="font-size: 15px;">CATEGORY: ' . $item['category_name'] . '</p>
                     <p class="my-2" style="font-size: 15px;">SIZE: ' . $item['size'] . '</p>
+                    </div>
+                    <div class="col-3 d-flex align-items-center justify-content-center">
+                    <button type="button" class="btn btn-primary">+</button>
+                    </div>
                     </div>
                     </div>
                     </div>';
