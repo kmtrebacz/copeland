@@ -46,19 +46,11 @@ session_start();
 
           $view_count_added = (int)$_GET['view_count'] + 1;
           
-          $sql = "UPDATE items SET items.items_view_count='" . $view_count_added . "' WHERE items.item_name = '" . $_GET['item_name'] . "'";
-
-          echo $_GET['view_count'];
-          echo $view_count_added;
-          echo $sql;
+          $sql = 'UPDATE items SET items.items_view_count="' . $view_count_added . '" WHERE items.item_name = "' . $_GET['item_name'] . '"  AND items.size = "' . $_GET['size'] . '"';
 
           $stmt = $conn->prepare($sql);
 
-          if ($stmt->execute()) {
-               echo "Update successful!";
-           } else {
-               echo "Error updating: " . $stmt->error;
-           }
+          $stmt->execute();
           
           $stmt->close();
           $conn->close();

@@ -31,25 +31,10 @@ session_start();
      <main class="container py-3">
 
           <section>
-               <h2 class="fs-1 ms-2">AVALIABLE ITEMS</h2>
+               <h2 class="fs-1 ms-2">MOST POPULAR ITEMS</h2>
                <div class="d-flex overflow-auto drag-to-scroll-items" style="height:min-content; cursor: grab;">
                     <?php
                     require('./../includes/db_connection.php');
-
-                    function getRandomItems($conn)
-                    {
-                         $sql = "SELECT items.item_name, categories.category_name, items.size, items.items_view_count FROM items JOIN categories ON categories.category_id = items.category_id ORDER BY RAND() LIMIT 5";
-                         $result = $conn->query($sql);
-                         $items = array();
-
-                         if ($result->num_rows > 0) {
-                              while ($row = $result->fetch_assoc()) {
-                                   $items[] = $row;
-                              }
-                         }
-
-                         return $items;
-                    }
                     
                     function convertToTitleCase($input) {
                          $words = explode("_", $input);
@@ -57,31 +42,36 @@ session_start();
                          return implode(" ", $formattedWords);
                     }
 
-                    $randomItems = getRandomItems($conn);
-
-                    foreach ($randomItems as $item) {
-                         echo '<div class="px-2 col-10 col-lg-4 mx-auto mx-lg-0 my-2">
-                         <div class="card">
-                         <div class="card-body row">
-                         <div class="col-9">
-                         <form method="get" action="item.php">
-                         <input type="hidden" name="item_name" value="' . $item['item_name'] . '">
-                         <input type="hidden" name="category_name" value="' . convertToTitleCase($item['category_name']) . '">
-                         <input type="hidden" name="size" value="' . $item['size'] . '">
-                         <input type="hidden" name="view_count" value="' . $item['items_view_count'] . '">
-                         <h4 class="m-0" class="card-title">
-                         <input type="submit" class="m-0 p-0 border-0 bg-white" value="' . $item['item_name'] . '">
-                         </h4>
-                         </form>
-                         <p class="my-2" style="font-size: 15px;">CATEGORY: ' . convertToTitleCase($item['category_name']) . '</p>
-                         <p class="my-2" style="font-size: 15px;">SIZE: ' . $item['size'] . '</p>
-                         </div>
-                         <div class="col-3 d-flex align-items-center justify-content-center">
-                         <button type="button" class="btn btn-primary">+</button>
-                         </div>
-                         </div>
-                         </div>
-                         </div>';
+                    $query = "SELECT items.item_name, categories.category_name, items.size, items.items_view_count FROM items JOIN categories ON categories.category_id = items.category_id ORDER BY items.items_view_count DESC LIMIT 5;";
+                    $result = $conn->query($query);
+          
+                    if ($result->num_rows > 0) {
+                         while ($row = $result->fetch_assoc()) {
+                              echo '<div class="px-2 col-10 col-lg-4 mx-auto mx-lg-0 my-2">
+                              <div class="card">
+                              <div class="card-body row">
+                              <div class="col-9">
+                              <form method="get" action="item.php">
+                              <input type="hidden" name="item_name" value="' . $row['item_name'] . '">
+                              <input type="hidden" name="category_name" value="' . convertToTitleCase($row['category_name']) . '">
+                              <input type="hidden" name="size" value="' . $row['size'] . '">
+                              <input type="hidden" name="view_count" value="' . $row['items_view_count'] . '">
+                              <h4 class="m-0" class="card-title">
+                              <input type="submit" class="m-0 p-0 border-0 bg-white" value="' . $row['item_name'] . '">
+                              </h4>
+                              </form>
+                              <p class="my-2" style="font-size: 15px;">CATEGORY: ' . convertToTitleCase($row['category_name']) . '</p>
+                              <p class="my-2" style="font-size: 15px;">SIZE: ' . $row['size'] . '</p>
+                              </div>
+                              <div class="col-3 d-flex align-items-center justify-content-center">
+                              <button type="button" class="btn btn-primary">+</button>
+                              </div>
+                              </div>
+                              </div>
+                              </div>';
+                         }
+                    } else {
+                         echo "<p><strong>There are no items</strong></p>";
                     }
 
 
