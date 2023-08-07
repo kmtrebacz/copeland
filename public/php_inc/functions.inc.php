@@ -4,6 +4,9 @@ function invalidUid($name) {
      if (preg_match("/^[a-zA-Z0-9]*$/", $name)) {
           $result = false;
      }
+     if ($name = 'admin') {
+          $result = false;
+     }
      return $result;
 }
 

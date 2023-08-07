@@ -23,6 +23,12 @@ session_start();
           <?php
           require('./../includes/db_connection.php');
 
+          function convertToTitleCase($input) {
+               $words = explode("_", $input);
+               $formattedWords = array_map('ucwords', $words);
+               return implode(" ", $formattedWords);
+          }
+
           $query = "SELECT items.item_name, categories.category_name, items.size FROM items JOIN categories ON categories.category_id = items.category_id WHERE 1;";
           $result = $conn->query($query);
 
@@ -33,8 +39,15 @@ session_start();
                     <div class="card">
                     <div class="card-body row">
                     <div class="col-9">
-                    <h4 class="m-0" class="card-title">' . $row['item_name'] . '</h4>
-                    <p class="my-2" style="font-size: 15px;">CATEGORY: ' . $row['category_name'] . '</p>
+                    <form method="post" action="item.php">
+                    <input type="hidden" name="item_name" value="' . $row['item_name'] . '">
+                    <input type="hidden" name="category_name" value="' . convertToTitleCase($row['category_name']) . '">
+                    <input type="hidden" name="size" value="' . $row['size'] . '">
+                    <h4 class="m-0" class="card-title">
+                    <input type="submit" class="m-0 p-0 border-0 bg-white" value="' . $row['item_name'] . '">
+                    </h4>
+                    </form>
+                    <p class="my-2" style="font-size: 15px;">CATEGORY: ' . convertToTitleCase($row['category_name']) . '</p>
                     <p class="my-2" style="font-size: 15px;">SIZE: ' . $row['size'] . '</p>
                     </div>
                     <div class="col-3 d-flex align-items-center justify-content-center">
