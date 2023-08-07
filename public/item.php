@@ -21,15 +21,15 @@ session_start();
      <main class="container py-3">
 
           <?php
-          if ($_SERVER["REQUEST_METHOD"] == "POST") {
+          if ($_SERVER["REQUEST_METHOD"] == "GET") {
                echo '<section class="py-5">
                <div class="container px-4 px-lg-5 my-5">
                <div class="row gx-4 gx-lg-5 align-items-center">
                <div class="col-md-6"></div>
                <div class="col-md-6">
-               <h1 class="display-5 fw-bolder">' . $_POST['item_name'] . '</h1>
-               <h3>' . $_POST['category_name'] . '</h3>
-               <p>Size: ' . $_POST['size'] . '</p>
+               <h1 class="display-5 fw-bolder">' . $_GET['item_name'] . '</h1>
+               <h3>' . $_GET['category_name'] . '</h3>
+               <p>Size: ' . $_GET['size'] . '</p>
                <div class="d-flex">
                <button class="btn btn-primary flex-shrink-0" type="button">
                <i class="bi bi-plus-lg me-1"></i>
@@ -41,6 +41,28 @@ session_start();
                </div>
           </section>';
           }
+
+          require('./../includes/db_connection.php');
+
+          $view_count_added = (int)$_GET['view_count'] + 1;
+          
+          $sql = "UPDATE items SET items.items_view_count='" . $view_count_added . "' WHERE items.item_name = '" . $_GET['item_name'] . "'";
+
+          echo $_GET['view_count'];
+          echo $view_count_added;
+          echo $sql;
+
+          $stmt = $conn->prepare($sql);
+
+          if ($stmt->execute()) {
+               echo "Update successful!";
+           } else {
+               echo "Error updating: " . $stmt->error;
+           }
+          
+          $stmt->close();
+          $conn->close();
+          
           ?>
 
      </main>

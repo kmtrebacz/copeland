@@ -31,14 +31,14 @@ session_start();
      <main class="container py-3">
 
           <section>
-               <h2 class="fs-1 ms-2">SOME RANDOM ITEMS</h2>
+               <h2 class="fs-1 ms-2">AVALIABLE ITEMS</h2>
                <div class="d-flex overflow-auto drag-to-scroll-items" style="height:min-content; cursor: grab;">
                     <?php
                     require('./../includes/db_connection.php');
 
                     function getRandomItems($conn)
                     {
-                         $sql = "SELECT items.item_name, categories.category_name, items.size FROM items JOIN categories ON categories.category_id = items.category_id ORDER BY RAND() LIMIT 5";
+                         $sql = "SELECT items.item_name, categories.category_name, items.size, items.items_view_count FROM items JOIN categories ON categories.category_id = items.category_id ORDER BY RAND() LIMIT 5";
                          $result = $conn->query($sql);
                          $items = array();
 
@@ -64,10 +64,11 @@ session_start();
                          <div class="card">
                          <div class="card-body row">
                          <div class="col-9">
-                         <form method="post" action="item.php">
+                         <form method="get" action="item.php">
                          <input type="hidden" name="item_name" value="' . $item['item_name'] . '">
                          <input type="hidden" name="category_name" value="' . convertToTitleCase($item['category_name']) . '">
                          <input type="hidden" name="size" value="' . $item['size'] . '">
+                         <input type="hidden" name="view_count" value="' . $item['items_view_count'] . '">
                          <h4 class="m-0" class="card-title">
                          <input type="submit" class="m-0 p-0 border-0 bg-white" value="' . $item['item_name'] . '">
                          </h4>

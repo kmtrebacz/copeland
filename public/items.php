@@ -29,7 +29,7 @@ session_start();
                return implode(" ", $formattedWords);
           }
 
-          $query = "SELECT items.item_name, categories.category_name, items.size FROM items JOIN categories ON categories.category_id = items.category_id WHERE 1;";
+          $query = "SELECT items.item_name, categories.category_name, items.size, items.items_view_count FROM items JOIN categories ON categories.category_id = items.category_id WHERE 1;";
           $result = $conn->query($query);
 
           if ($result->num_rows > 0) {
@@ -39,10 +39,11 @@ session_start();
                     <div class="card">
                     <div class="card-body row">
                     <div class="col-9">
-                    <form method="post" action="item.php">
+                    <form method="get" action="item.php">
                     <input type="hidden" name="item_name" value="' . $row['item_name'] . '">
                     <input type="hidden" name="category_name" value="' . convertToTitleCase($row['category_name']) . '">
                     <input type="hidden" name="size" value="' . $row['size'] . '">
+                    <input type="hidden" name="view_count" value="' . $row['items_view_count'] . '">
                     <h4 class="m-0" class="card-title">
                     <input type="submit" class="m-0 p-0 border-0 bg-white" value="' . $row['item_name'] . '">
                     </h4>
