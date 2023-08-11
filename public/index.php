@@ -125,6 +125,7 @@ session_start();
                console.log(x, walk, slider.scrollLeft)
           })
      </script>
+     <script src="./../js/popover.js"></script>
 </body>
 
 </html>

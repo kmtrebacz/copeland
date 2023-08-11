@@ -52,7 +52,14 @@ session_start();
                     <p class="my-2" style="font-size: 15px;">SIZE: ' . $row['size'] . '</p>
                     </div>
                     <div class="col-3 d-flex align-items-center justify-content-center">
+                    <div>
+                    <div class="position-absolute p-3 border rounded" style="display: none; background: #fff; bottom: -18px; z-index: 111;">
+                    TEST
+                    </div>
+                    <div class="popover" data-on="0">
                     <button type="button" class="btn btn-primary">+</button>
+                    </div>
+                    </div>
                     </div>
                     </div>
                     </div>
@@ -74,6 +81,7 @@ session_start();
      ?>
 
      <?php include_once './../includes/bootstrap_js.html'; ?>
+     <script src="./../js/popover.js"></script>
 </body>
 
 </html>
