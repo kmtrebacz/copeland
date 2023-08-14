@@ -32,7 +32,7 @@ session_start();
 
           <section>
                <h2 class="fs-1 ms-2">MOST POPULAR ITEMS</h2>
-               <div class="d-flex overflow-auto drag-to-scroll-items" style="height:min-content; cursor: grab;">
+               <div class="d-flex">
                     <?php
                     require('./../includes/db_connection.php');
                     

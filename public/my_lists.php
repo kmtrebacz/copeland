@@ -46,7 +46,7 @@ if (!isset($_SESSION["userid"])) {
                while ($row = $result->fetch_assoc()) {
                     if ($row['is_public'] == 0) {
                          echo
-                         '<div class="px-2 col-10 col-lg-4 mx-auto mx-lg-0 my-3 my-lg-0">
+                         '<div class="px-2 col-10 col-lg-4 mx-auto mx-lg-0 my-2">
                          <div class="card">
                          <div class="card-body">
                          <h4 class="m-0" class="card-title">' . $row['list_name'] . '</h4>
@@ -58,7 +58,7 @@ if (!isset($_SESSION["userid"])) {
                     }
                     else if ($row['is_public'] == 1)  {
                          echo
-                         '<div class="px-2 col-10 col-lg-4 mx-auto mx-lg-0 my-3 my-lg-0">
+                         '<div class="px-2 col-10 col-lg-4 mx-auto mx-lg-0 my-2">
                          <div class="card">
                          <div class="card-body">
                          <h4 class="m-0" class="card-title">' . $row['list_name'] . '</h4>
