@@ -31,10 +31,14 @@ session_start();
                <h3>' . $_GET['category_name'] . '</h3>
                <p>Size: ' . $_GET['size'] . '</p>
                <div class="d-flex">
-               <button class="btn btn-primary flex-shrink-0" type="button">
-               <i class="bi bi-plus-lg me-1"></i>
-               Add to list
-               </button>
+               <div>
+               <div class="position-absolute p-3 border rounded" style="display: none; background: #fff; margin-top: 46px; z-index: 111;">
+               TEST
+               </div>
+               <div class="popover" data-on="0">
+               <button type="button" class="btn btn-primary">+ Add to list</button>
+               </div>
+               </div>
                </div>
                </div>
                </div>
@@ -63,6 +67,7 @@ session_start();
      include_once './../includes/footer.html';
      ?>
 
+     <script src="./../js/popover.js"></script>
      <?php include_once './../includes/bootstrap_js.html'; ?>
 </body>
 
