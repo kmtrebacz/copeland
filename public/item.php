@@ -43,22 +43,21 @@ session_start();
                </div>
                </div>
                </div>
-          </section>';
+               </section>';
+
+               require('./../includes/db_connection.php');
+
+               $view_count_added = (int)$_GET['view_count'] + 1;
+          
+               $sql = 'UPDATE items SET items.items_view_count="' . $view_count_added . '" WHERE items.item_name = "' . $_GET['item_name'] . '"  AND items.size = "' . $_GET['size'] . '"';
+
+               $stmt = $conn->prepare($sql);
+
+               $stmt->execute();
+          
+               $stmt->close();
+               $conn->close();
           }
-
-          require('./../includes/db_connection.php');
-
-          $view_count_added = (int)$_GET['view_count'] + 1;
-          
-          $sql = 'UPDATE items SET items.items_view_count="' . $view_count_added . '" WHERE items.item_name = "' . $_GET['item_name'] . '"  AND items.size = "' . $_GET['size'] . '"';
-
-          $stmt = $conn->prepare($sql);
-
-          $stmt->execute();
-          
-          $stmt->close();
-          $conn->close();
-          
           ?>
 
      </main>

@@ -51,7 +51,13 @@ if (!isset($_SESSION["userid"])) {
                          <div class="card-body">
                          <h4 class="m-0" class="card-title">' . $row['list_name'] . '</h4>
                          <p class="my-2" style="font-size: 15px;"><i class="bi bi-lock"></i> Private</p>
-                         <a class="link-offset-1 mt-1" href="#">See more</a>
+                         <form method="get" action="list.php">
+                         <input type="hidden" name="list_name" value="' . $row['list_name'] . '">
+                         <input type="hidden" name="is_public" value="' . $row['is_public'] . '">
+                         <a class="link-offset-1 mt-1" class="card-title">
+                         <input type="submit" class="m-0 p-0 border-0 text-primary bg-white text-decoration-underline" value="See more">
+                         </a>
+                         </form>
                          </div>
                          </div>
                          </div>';
@@ -63,7 +69,13 @@ if (!isset($_SESSION["userid"])) {
                          <div class="card-body">
                          <h4 class="m-0" class="card-title">' . $row['list_name'] . '</h4>
                          <p class="my-2" style="font-size: 15px;"><i class="bi bi-globe2"></i> Public</p>
-                         <a class="link-offset-1 mt-1" href="#">See more</a>
+                         <form method="get" action="list.php">
+                         <input type="hidden" name="list_name" value="' . $row['list_name'] . '">
+                         <input type="hidden" name="is_public" value="' . $row['is_public'] . '">
+                         <a class="link-offset-1 mt-1" class="card-title">
+                         <input type="submit" class="m-0 p-0 border-0 text-primary bg-white text-decoration-underline" value="See more">
+                         </a>
+                         </form>
                          </div>
                          </div>
                          </div>';
