@@ -35,36 +35,68 @@ session_start();
           if ($result->num_rows > 0) {
                echo '<div class="row">';
                while ($row = $result->fetch_assoc()) {
-                    echo '<div class="px-2 col-10 col-lg-4 mx-auto mx-lg-0 my-2">
-                    <div class="card">
-                    <div class="card-body row">
-                    <div class="col-9">
-                    <form method="get" action="item.php">
-                    <input type="hidden" name="item_name" value="' . $row['item_name'] . '">
-                    <input type="hidden" name="category_name" value="' . convertToTitleCase($row['category_name']) . '">
-                    <input type="hidden" name="size" value="' . $row['size'] . '">
-                    <input type="hidden" name="view_count" value="' . $row['items_view_count'] . '">
-                    <h4 class="m-0" class="card-title">
-                    <input type="submit" class="m-0 p-0 border-0 bg-white" value="' . $row['item_name'] . '">
-                    </h4>
-                    </form>
-                    <p class="my-2" style="font-size: 15px;">CATEGORY: ' . convertToTitleCase($row['category_name']) . '</p>
-                    <p class="my-2" style="font-size: 15px;">SIZE: ' . $row['size'] . '</p>
-                    </div>
-                    <div class="col-3 d-flex align-items-center justify-content-center">
-                    <div>
-                    <div class="position-absolute p-3 border rounded" style="display: none; background: #fff; bottom: -18px; z-index: 111;">
-                    TEST
-                    </div>
-                    <div class="popover" data-on="0">
-                    <button type="button" class="btn btn-primary">+</button>
-                    </div>
-                    </div>
-                    </div>
-                    </div>
-                    </div>
-                    </div>';
-               }
+                    if (isset($_SESSION["userid"])) {
+                         echo '<div class="px-2 col-10 col-lg-4 mx-auto mx-lg-0 my-2">
+                         <div class="card">
+                         <div class="card-body row">
+                         <div class="col-9">
+                         <form method="get" action="item.php">
+                         <input type="hidden" name="item_name" value="' . $row['item_name'] . '">
+                         <input type="hidden" name="category_name" value="' . convertToTitleCase($row['category_name']) . '">
+                         <input type="hidden" name="size" value="' . $row['size'] . '">
+                         <input type="hidden" name="view_count" value="' . $row['items_view_count'] . '">
+                         <h4 class="m-0" class="card-title">
+                         <input type="submit" class="m-0 p-0 border-0 bg-white" value="' . $row['item_name'] . '">
+                         </h4>
+                         </form>
+                         <p class="my-2" style="font-size: 15px;">CATEGORY: ' . convertToTitleCase($row['category_name']) . '</p>
+                         <p class="my-2" style="font-size: 15px;">SIZE: ' . $row['size'] . '</p>
+                         </div>
+                         <div class="col-3 d-flex align-items-center justify-content-center">
+                         <div>
+                         <div class="position-absolute p-3 border rounded" style="display: none; background: #fff; bottom: -18px; z-index: 111; width: max-content;">
+                         <strong>You\'re logged</strong>
+                         </div>
+                         <div class="popover" data-on="0">
+                         <button type="button" class="btn btn-primary">+</button>
+                         </div>
+                         </div>
+                         </div>
+                         </div>
+                         </div>
+                         </div>';
+                    } else {
+                         echo '<div class="px-2 col-10 col-lg-4 mx-auto mx-lg-0 my-2">
+                         <div class="card">
+                         <div class="card-body row">
+                         <div class="col-9">
+                         <form method="get" action="item.php">
+                         <input type="hidden" name="item_name" value="' . $row['item_name'] . '">
+                         <input type="hidden" name="category_name" value="' . convertToTitleCase($row['category_name']) . '">
+                         <input type="hidden" name="size" value="' . $row['size'] . '">
+                         <input type="hidden" name="view_count" value="' . $row['items_view_count'] . '">
+                         <h4 class="m-0" class="card-title">
+                         <input type="submit" class="m-0 p-0 border-0 bg-white" value="' . $row['item_name'] . '">
+                         </h4>
+                         </form>
+                         <p class="my-2" style="font-size: 15px;">CATEGORY: ' . convertToTitleCase($row['category_name']) . '</p>
+                         <p class="my-2" style="font-size: 15px;">SIZE: ' . $row['size'] . '</p>
+                         </div>
+                         <div class="col-3 d-flex align-items-center justify-content-center">
+                         <div>
+                         <div class="position-absolute p-3 border rounded" style="display: none; background: #fff; bottom: -18px; z-index: 111; width: max-content;">
+                         <strong>You are not logged in</strong>
+                         </div>
+                         <div class="popover" data-on="0">
+                         <button type="button" class="btn btn-primary">+</button>
+                         </div>
+                         </div>
+                         </div>
+                         </div>
+                         </div>
+                         </div>';
+                    }
+                  }
                echo '</div>';
           } else {
                echo "<p><strong>There are no items</strong></p>";
