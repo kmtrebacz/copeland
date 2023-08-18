@@ -22,28 +22,53 @@ session_start();
 
           <?php
           if ($_SERVER["REQUEST_METHOD"] == "GET") {
-               echo '<section class="py-5">
-               <div class="container px-4 px-lg-5 my-5">
-               <div class="row gx-4 gx-lg-5 align-items-center">
-               <div class="col-md-6"></div>
-               <div class="col-md-6">
-               <h1 class="display-5 fw-bolder">' . $_GET['item_name'] . '</h1>
-               <h3>' . $_GET['category_name'] . '</h3>
-               <p>Size: ' . $_GET['size'] . '</p>
-               <div class="d-flex">
-               <div>
-               <div class="position-absolute p-3 border rounded" style="display: none; background: #fff; margin-top: 46px; z-index: 111;">
-               TEST
-               </div>
-               <div class="popover" data-on="0">
-               <button type="button" class="btn btn-primary">+ Add to list</button>
-               </div>
-               </div>
-               </div>
-               </div>
-               </div>
-               </div>
-               </section>';
+               if (isset($_SESSION["userid"])) {
+                    echo '<section class="py-5">
+                    <div class="container px-4 px-lg-5 my-5">
+                    <div class="row gx-4 gx-lg-5 align-items-center">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6">
+                    <h1 class="display-5 fw-bolder">' . $_GET['item_name'] . '</h1>
+                    <h3>' . $_GET['category_name'] . '</h3>
+                    <p>Size: ' . $_GET['size'] . '</p>
+                    <div class="d-flex">
+                    <div>
+                    <div class="position-absolute p-3 border rounded" style="display: none; background: #fff; margin-top: 46px; z-index: 111;">
+                    <strong>You\'re logged</strong>
+                    </div>
+                    <div class="popover" data-on="0">
+                    <button type="button" class="btn btn-primary">+ Add to list</button>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </section>';
+               } else {
+                    echo '<section class="py-5">
+                    <div class="container px-4 px-lg-5 my-5">
+                    <div class="row gx-4 gx-lg-5 align-items-center">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6">
+                    <h1 class="display-5 fw-bolder">' . $_GET['item_name'] . '</h1>
+                    <h3>' . $_GET['category_name'] . '</h3>
+                    <p>Size: ' . $_GET['size'] . '</p>
+                    <div class="d-flex">
+                    <div>
+                    <div class="position-absolute p-3 border rounded" style="display: none; background: #fff; margin-top: 46px; z-index: 111;">
+                    <strong>You are not logged in</strong>
+                    </div>
+                    <div class="popover" data-on="0">
+                    <button type="button" class="btn btn-primary">+ Add to list</button>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </section>';
+               }
 
                require('./../includes/db_connection.php');
 
