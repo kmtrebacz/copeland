@@ -23,48 +23,60 @@ session_start();
           <?php
           require('./../includes/db_connection.php');
 
-          function convertToTitleCase($input) {
+          function convertToTitleCase($input)
+          {
                $words = explode("_", $input);
                $formattedWords = array_map('ucwords', $words);
                return implode(" ", $formattedWords);
           }
+          if (isset($_SESSION["userid"])) {
+               $queryLists = "SELECT lists.list_id, lists.list_name FROM lists JOIN users ON users.user_id = lists.user_id WHERE users.username='" . $_SESSION['userid'] . "';";
+               $resultLists = $conn->query($queryLists);
+               $lists = '';
+               if ($resultLists->num_rows > 0) {
+                    while ($row = $resultLists->fetch_assoc()) {
+                         $lists .= '<input type="checkbox" name="item_name_' . $row['list_name'] . '">  <label for="item_name_' . $row['list_name'] . '">' . $row['list_name'] . '</label><br>';
+                    }
+               }
+          }
 
-          $query = "SELECT items.item_name, categories.category_name, items.size, items.items_view_count FROM items JOIN categories ON categories.category_id = items.category_id WHERE 1;";
-          $result = $conn->query($query);
 
-          if ($result->num_rows > 0) {
+          $queryItems = "SELECT items.item_name, categories.category_name, items.size, items.items_view_count FROM items JOIN categories ON categories.category_id = items.category_id ORDER BY items.items_view_count DESC LIMIT 6;";
+          $resultItems = $conn->query($queryItems);
+
+          if ($resultItems->num_rows > 0) {
                echo '<div class="row">';
-               while ($row = $result->fetch_assoc()) {
+               while ($row = $resultItems->fetch_assoc()) {
                     if (isset($_SESSION["userid"])) {
                          echo '<div class="px-2 col-10 col-lg-4 mx-auto mx-lg-0 my-2">
-                         <div class="card">
-                         <div class="card-body row">
-                         <div class="col-9">
-                         <form method="get" action="item.php">
-                         <input type="hidden" name="item_name" value="' . $row['item_name'] . '">
-                         <input type="hidden" name="category_name" value="' . convertToTitleCase($row['category_name']) . '">
-                         <input type="hidden" name="size" value="' . $row['size'] . '">
-                         <input type="hidden" name="view_count" value="' . $row['items_view_count'] . '">
-                         <h4 class="m-0" class="card-title">
-                         <input type="submit" class="m-0 p-0 border-0 bg-white" value="' . $row['item_name'] . '">
-                         </h4>
-                         </form>
-                         <p class="my-2" style="font-size: 15px;">CATEGORY: ' . convertToTitleCase($row['category_name']) . '</p>
-                         <p class="my-2" style="font-size: 15px;">SIZE: ' . $row['size'] . '</p>
-                         </div>
-                         <div class="col-3 d-flex align-items-center justify-content-center">
-                         <div>
-                         <div class="position-absolute p-3 border rounded" style="display: none; background: #fff; bottom: -18px; z-index: 111; width: max-content;">
-                         <strong>You\'re logged</strong>
-                         </div>
-                         <div class="popover" data-on="0">
-                         <button type="button" class="btn btn-primary">+</button>
-                         </div>
-                         </div>
-                         </div>
-                         </div>
-                         </div>
-                         </div>';
+                              <div class="card">
+                              <div class="card-body row">
+                              <div class="col-9">
+                              <form method="get" action="item.php">
+                              <input type="hidden" name="item_name" value="' . $row['item_name'] . '">
+                              <input type="hidden" name="category_name" value="' . convertToTitleCase($row['category_name']) . '">
+                              <input type="hidden" name="size" value="' . $row['size'] . '">
+                              <input type="hidden" name="view_count" value="' . $row['items_view_count'] . '">
+                              <h4 class="m-0" class="card-title">
+                              <input type="submit" class="m-0 p-0 border-0 bg-white" value="' . $row['item_name'] . '">
+                              </h4>
+                              </form>
+                              <p class="my-2" style="font-size: 15px;">CATEGORY: ' . convertToTitleCase($row['category_name']) . '</p>
+                              <p class="my-2" style="font-size: 15px;">SIZE: ' . $row['size'] . '</p>
+                              </div>
+                              <div class="col-3 d-flex align-items-center justify-content-center">
+                              <div>
+                              <div class="position-absolute p-3 border rounded" style="display: none; background: #fff; right: 78px; z-index: 111; width: max-content;">
+                              ' . $lists . ' 
+                              </div>
+                              <div class="popover" data-on="0">
+                              <button type="button" class="btn btn-primary">+</button>
+                              </div>
+                              </div>
+                              </div>
+                              </div>
+                              </div>
+                              </div>';
                     } else {
                          echo '<div class="px-2 col-10 col-lg-4 mx-auto mx-lg-0 my-2">
                          <div class="card">
@@ -96,7 +108,7 @@ session_start();
                          </div>
                          </div>';
                     }
-                  }
+               }
                echo '</div>';
           } else {
                echo "<p><strong>There are no items</strong></p>";

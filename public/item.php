@@ -21,8 +21,20 @@ session_start();
      <main class="container py-3">
 
           <?php
+
+          require('./../includes/db_connection.php');
           if ($_SERVER["REQUEST_METHOD"] == "GET") {
                if (isset($_SESSION["userid"])) {
+
+                    $queryLists = "SELECT lists.list_id, lists.list_name FROM lists JOIN users ON users.user_id = lists.user_id WHERE users.username='" . $_SESSION['userid'] . "';";
+                    $resultLists = $conn->query($queryLists);
+                    $lists = '';
+                    if ($resultLists->num_rows > 0) {
+                         while ($row = $resultLists->fetch_assoc()) {
+                              $lists .= '<input type="checkbox" name="item_name_' . $row['list_name'] . '">  <label for="item_name_' . $row['list_name'] . '">' . $row['list_name'] . '</label><br>';
+                         }
+                    }
+
                     echo '<section class="py-5">
                     <div class="container px-4 px-lg-5 my-5">
                     <div class="row gx-4 gx-lg-5 align-items-center">
@@ -34,7 +46,7 @@ session_start();
                     <div class="d-flex">
                     <div>
                     <div class="position-absolute p-3 border rounded" style="display: none; background: #fff; margin-top: 46px; z-index: 111;">
-                    <strong>You\'re logged</strong>
+                    ' . $lists . '                    
                     </div>
                     <div class="popover" data-on="0">
                     <button type="button" class="btn btn-primary">+ Add to list</button>
@@ -73,13 +85,13 @@ session_start();
                require('./../includes/db_connection.php');
 
                $view_count_added = (int)$_GET['view_count'] + 1;
-          
+
                $sql = 'UPDATE items SET items.items_view_count="' . $view_count_added . '" WHERE items.item_name = "' . $_GET['item_name'] . '"  AND items.size = "' . $_GET['size'] . '"';
 
                $stmt = $conn->prepare($sql);
 
                $stmt->execute();
-          
+
                $stmt->close();
                $conn->close();
           }

@@ -35,21 +35,33 @@ session_start();
                <div class="d-flex">
                     <?php
                     require('./../includes/db_connection.php');
-                    
-                    function convertToTitleCase($input) {
+
+                    function convertToTitleCase($input){
                          $words = explode("_", $input);
                          $formattedWords = array_map('ucwords', $words);
                          return implode(" ", $formattedWords);
                     }
 
-                    $query = "SELECT items.item_name, categories.category_name, items.size, items.items_view_count FROM items JOIN categories ON categories.category_id = items.category_id ORDER BY items.items_view_count DESC LIMIT 6;";
-                    $result = $conn->query($query);
-          
-                    if ($result->num_rows > 0) {
-                       echo '<div class="row">';
-                       while ($row = $result->fetch_assoc()) {
-                         if (isset($_SESSION["userid"])) {
-                              echo '<div class="px-2 col-10 col-lg-4 mx-auto mx-lg-0 my-2">
+                    if (isset($_SESSION["userid"])) {
+                         $queryLists = "SELECT lists.list_id, lists.list_name FROM lists JOIN users ON users.user_id = lists.user_id WHERE users.username='" . $_SESSION['userid'] . "';";
+                         $resultLists = $conn->query($queryLists);
+                         $lists = '';
+                         if ($resultLists->num_rows > 0) {
+                              while ($row = $resultLists->fetch_assoc()) {
+                                   $lists .= '<input type="checkbox" name="item_name_' . $row['list_name'] . '">  <label for="item_name_' . $row['list_name'] . '">' . $row['list_name'] . '</label><br>';
+                              }
+                         }
+                    }
+
+
+                    $queryItems = "SELECT items.item_name, categories.category_name, items.size, items.items_view_count FROM items JOIN categories ON categories.category_id = items.category_id ORDER BY items.items_view_count DESC LIMIT 6;";
+                    $resultItems = $conn->query($queryItems);
+
+                    if ($resultItems->num_rows > 0) {
+                         echo '<div class="row">';
+                         while ($row = $resultItems->fetch_assoc()) {
+                              if (isset($_SESSION["userid"])) {
+                                   echo '<div class="px-2 col-10 col-lg-4 mx-auto mx-lg-0 my-2">
                               <div class="card">
                               <div class="card-body row">
                               <div class="col-9">
@@ -67,8 +79,8 @@ session_start();
                               </div>
                               <div class="col-3 d-flex align-items-center justify-content-center">
                               <div>
-                              <div class="position-absolute p-3 border rounded" style="display: none; background: #fff; bottom: -18px; z-index: 111; width: max-content;">
-                              <strong>You\'re logged</strong>
+                              <div class="position-absolute p-3 border rounded" style="display: none; background: #fff; right: 78px; z-index: 111; width: max-content;">
+                              ' . $lists . ' 
                               </div>
                               <div class="popover" data-on="0">
                               <button type="button" class="btn btn-primary">+</button>
@@ -78,8 +90,8 @@ session_start();
                               </div>
                               </div>
                               </div>';
-                         } else {
-                              echo '<div class="px-2 col-10 col-lg-4 mx-auto mx-lg-0 my-2">
+                              } else {
+                                   echo '<div class="px-2 col-10 col-lg-4 mx-auto mx-lg-0 my-2">
                               <div class="card">
                               <div class="card-body row">
                               <div class="col-9">
@@ -108,12 +120,12 @@ session_start();
                               </div>
                               </div>
                               </div>';
+                              }
                          }
-                       }
-                       echo '</div>';
+                         echo '</div>';
                     } else {
-                       echo "<p><strong>There are no items</strong></p>";
-                    } 
+                         echo "<p><strong>There are no items</strong></p>";
+                    }
 
                     $conn->close();
                     ?>
