@@ -109,7 +109,7 @@ session_start();
                               </div>
                               <div class="col-3 d-flex align-items-center justify-content-center">
                               <div>
-                              <div class="position-absolute p-3 border rounded" style="display: none; background: #fff; bottom: -18px; z-index: 111; width: max-content;">
+                              <div class="position-absolute p-3 border rounded" style="display: none; background: #fff; right: 78px; z-index: 111; width: max-content;">
                               <strong>You are not logged in</strong>
                               </div>
                               <div class="popover" data-on="0">
