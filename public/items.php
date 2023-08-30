@@ -37,6 +37,7 @@ session_start();
                     while ($row = $resultLists->fetch_assoc()) {
                          $lists .= '<input type="checkbox" name="item_name_' . $row['list_name'] . '">  <label for="item_name_' . $row['list_name'] . '">' . $row['list_name'] . '</label><br>';
                     }
+                    $lists .= '<button type="button" class="mt-2 btn btn-primary">Add to list</button>';
                }
           }
 
