@@ -35,14 +35,14 @@ session_start();
                $lists = '';
                if ($resultLists->num_rows > 0) {
                     while ($row = $resultLists->fetch_assoc()) {
-                         $lists .= '<input type="checkbox" name="item_name_' . $row['list_name'] . '">  <label for="item_name_' . $row['list_name'] . '">' . $row['list_name'] . '</label><br>';
+                         $lists .= '<input type="checkbox" name="item_name_' . $row['list_name'] . '" value="' . $row['list_id'] . '">  <label>' . $row['list_name'] . '</label><br>';
                     }
-                    $lists .= '<button type="button" class="mt-2 btn btn-primary">Add to list</button>';
+                    $lists .= '<input type="submit" class="mt-2 btn btn-primary" value="Add to list">';
                }
           }
 
 
-          $queryItems = "SELECT items.item_name, categories.category_name, items.size, items.items_view_count FROM items JOIN categories ON categories.category_id = items.category_id ORDER BY items.items_view_count DESC LIMIT 6;";
+          $queryItems = "SELECT items.item_id, items.item_name, categories.category_name, items.size, items.items_view_count FROM items JOIN categories ON categories.category_id = items.category_id ORDER BY items.items_view_count DESC LIMIT 6;";
           $resultItems = $conn->query($queryItems);
 
           if ($resultItems->num_rows > 0) {
@@ -54,6 +54,7 @@ session_start();
                               <div class="card-body row">
                               <div class="col-9">
                               <form method="get" action="item.php">
+                              <input type="hidden" name="item_id" value="' . $row['item_id'] . '">
                               <input type="hidden" name="item_name" value="' . $row['item_name'] . '">
                               <input type="hidden" name="category_name" value="' . convertToTitleCase($row['category_name']) . '">
                               <input type="hidden" name="size" value="' . $row['size'] . '">
@@ -68,7 +69,8 @@ session_start();
                               <div class="col-3 d-flex align-items-center justify-content-center">
                               <div>
                               <div class="position-absolute p-3 border rounded" style="display: none; background: #fff; right: 78px; z-index: 111; width: max-content;">
-                              ' . $lists . ' 
+                              <form method="get" action="./php_inc/add_item_to_list.inc.php"><input type="text" name="item_id" value="' . $row['item_id'] . '" class="d-none">
+                              ' . $lists . ' </form>
                               </div>
                               <div class="popover" data-on="0">
                               <button type="button" class="btn btn-primary">+</button>

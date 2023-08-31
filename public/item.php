@@ -31,9 +31,9 @@ session_start();
                     $lists = '';
                     if ($resultLists->num_rows > 0) {
                          while ($row = $resultLists->fetch_assoc()) {
-                              $lists .= '<input type="checkbox" name="item_name_' . $row['list_name'] . '">  <label for="item_name_' . $row['list_name'] . '">' . $row['list_name'] . '</label><br>';
+                              $lists .= '<input type="checkbox" name="item_name_' . $row['list_name'] . '" value="' . $row['list_id'] . '">  <label>' . $row['list_name'] . '</label><br>';
                          }
-                         $lists .= '<button type="button" class="mt-2 btn btn-primary">Add to list</button>';
+                         $lists .= '<input type="submit" class="mt-2 btn btn-primary" value="Add to list">';
                     }
 
                     echo '<section class="py-5">
@@ -47,7 +47,8 @@ session_start();
                     <div class="d-flex">
                     <div>
                     <div class="position-absolute p-3 border rounded" style="display: none; background: #fff; margin-top: 46px; z-index: 111;">
-                    ' . $lists . '                    
+                    <form method="get" action="./php_inc/add_item_to_list.inc.php"><input type="text" name="item_id" value="' . $_GET['item_id'] . '" class="d-none">
+                    ' . $lists . ' </form>                   
                     </div>
                     <div class="popover" data-on="0">
                     <button type="button" class="btn btn-primary">+ Add to list</button>
