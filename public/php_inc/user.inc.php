@@ -83,33 +83,48 @@ class User {
     }
     
     private function checkInfo($name, $pwd, $rPwd, $email, $conn) {
-        invalidUid($name) || passMatch($pwd, $rPwd) || uidExists($name, $conn) || emailExists($email, $conn) ? return false : return true;
+        if (invalidUid($name)) {
+            header("location: ./../signup.php?error=invaliduid");
+            exit();
+        }
+        if (passMatch($pwd, $rPwd)) {
+            header("location: ./../signup.php?error=passwordsdontmatch");
+            exit();
+        }
+        if (uidExists($name, $conn)) {
+            header("location: ./../signup.php?error=usernametaken");
+            exit();
+        }
+        if (emailExists($email, $conn)) {
+            header("location: ./../signup.php?error=emailwasused");
+            exit();
+        }
     }
    
-   public function register($name, $pwd, $rPwd, $email, $conn) {
-        if (checkInfo($name, $pwd, $rPwd, $email, $conn)) {
-            $sql = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
+    public function register($name, $pwd, $rPwd, $email, $conn) {
+        checkInfo($name, $pwd, $rPwd, $email, $conn);
+
+        $sql = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
     
-            $stmt = $conn->prepare($sql);
+        $stmt = $conn->prepare($sql);
         
-            if (!$stmt) {
-                die("Error preparing statement: " . $conn->error);
-            }
-        
-            $pwdHash = password_hash($pwd, PASSWORD_DEFAULT);
-    
-            $stmt->bind_param("sss", $name, $pwdHass, $email);
-        
-            if ($stmt->execute()) {
-                header("location: ./../signup.php?error=none");
-            } else {
-                header("location: ./../signup.php?error=stmtfailed");
-            }
-        
-            $stmt->close();
-            $conn->close();
+        if (!$stmt) {
+            die("Error preparing statement: " . $conn->error);
         }
+        
+        $pwdHash = password_hash($pwd, PASSWORD_DEFAULT);
+    
+        $stmt->bind_param("sss", $name, $pwdHass, $email);
+        
+        if ($stmt->execute()) {
+            header("location: ./../signup.php?error=none");
+        } else {
+            header("location: ./../signup.php?error=stmtfailed");
+        }
+        
+        $stmt->close();
+        $conn->close();
    
         exit();
-   }
+    }
 }
