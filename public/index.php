@@ -10,6 +10,16 @@ session_start();
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>Copeland - Drum sets configurator</title>
      <?php include_once './../includes/bootstrap_css.html'; ?>
+     <style>
+          .drag-to-scroll-items {
+               scrollbar-width: thin;
+               scrollbar-color: var(--secondary) var(--primary);
+          }
+
+          .drag-to-scroll-items::-webkit-scrollbar {
+               width: 15px;
+          }
+     </style>
 </head>
 
 <body>
