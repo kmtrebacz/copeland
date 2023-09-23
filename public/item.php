@@ -21,13 +21,14 @@ session_start();
      <main class="container py-3">
 
           <?php
+          require('./php_inc/db_functions.inc.php');
 
-          require('./../includes/db_connection.php');
+          $conn = dbConnect();
+
           if ($_SERVER["REQUEST_METHOD"] == "GET") {
                if (isset($_SESSION["userid"])) {
 
-                    $queryLists = "SELECT lists.list_id, lists.list_name FROM lists JOIN users ON users.user_id = lists.user_id WHERE users.username='" . $_SESSION['userid'] . "';";
-                    $resultLists = $conn->query($queryLists);
+                    $resultLists = dbQuery($conn, "SELECT lists.list_id, lists.list_name FROM lists JOIN users ON users.user_id = lists.user_id WHERE users.username='" . $_SESSION['userid'] . "';");
                     $lists = '';
                     if ($resultLists->num_rows > 0) {
                          while ($row = $resultLists->fetch_assoc()) {
@@ -95,7 +96,7 @@ session_start();
                $stmt->execute();
 
                $stmt->close();
-               $conn->close();
+               dbClose($conn);
           }
           ?>
 

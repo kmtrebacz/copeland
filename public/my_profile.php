@@ -26,12 +26,12 @@ if (!isset($_SESSION["userid"])) {
      <main class="container py-3">
 
           <?php
+          require('./php_inc/db_functions.inc.php');
+
+          $conn = dbConnect();
           $name = $_SESSION["userid"];
-          $sql = "SELECT * FROM users WHERE username = '$name'";
 
-          require_once './../includes/db_connection.php';
-
-          $result = $conn->query($sql);
+          $result = dbQuery($conn, "SELECT * FROM users WHERE username = '$name'");
 
           if ($result->num_rows > 0) {
                $row = $result->fetch_assoc();
@@ -42,6 +42,8 @@ if (!isset($_SESSION["userid"])) {
           } else {
                echo "No results found.";
           }
+
+          dbClose($conn);
           ?>
 
      </main>

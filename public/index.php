@@ -34,7 +34,9 @@ session_start();
                <h2 class="fs-1 ms-2">MOST POPULAR ITEMS</h2>
                <div class="d-flex">
                     <?php
-                    require('./../includes/db_connection.php');
+                    require('./php_inc/db_functions.inc.php');
+
+                    $conn = dbConnect();
 
                     function convertToTitleCase($input){
                          $words = explode("_", $input);
@@ -43,8 +45,7 @@ session_start();
                     }
 
                     if (isset($_SESSION["userid"])) {
-                         $queryLists = "SELECT lists.list_id, lists.list_name FROM lists JOIN users ON users.user_id = lists.user_id WHERE users.username='" . $_SESSION['userid'] . "';";
-                         $resultLists = $conn->query($queryLists);
+                         $resultLists = dbQuery($conn, "SELECT lists.list_id, lists.list_name FROM lists JOIN users ON users.user_id = lists.user_id WHERE users.username='" . $_SESSION['userid'] . "';");
                          $lists = '';
                          if ($resultLists->num_rows > 0) {
                               while ($row = $resultLists->fetch_assoc()) {
@@ -54,9 +55,7 @@ session_start();
                          }
                     }
 
-
-                    $queryItems = "SELECT items.item_id, items.item_name, categories.category_name, items.size, items.items_view_count FROM items JOIN categories ON categories.category_id = items.category_id ORDER BY items.items_view_count DESC LIMIT 6;";
-                    $resultItems = $conn->query($queryItems);
+                    $resultItems = dbQuery($conn, "SELECT items.item_id, items.item_name, categories.category_name, items.size, items.items_view_count FROM items JOIN categories ON categories.category_id = items.category_id ORDER BY items.items_view_count DESC LIMIT 6;");
 
                     if ($resultItems->num_rows > 0) {
                          echo '<div class="row">';
@@ -129,7 +128,7 @@ session_start();
                          echo "<p><strong>There are no items</strong></p>";
                     }
 
-                    $conn->close();
+                    dbClose($conn);
                     ?>
                </div>
           </section>

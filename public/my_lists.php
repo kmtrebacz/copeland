@@ -26,24 +26,24 @@ if (!isset($_SESSION["userid"])) {
      <main class="container py-3">
 
           <?php
-          require('./../includes/db_connection.php');
-          $user_id = $_SESSION['userid'];
+          require('./php_inc/db_functions.inc.php');
 
-          $sql = "SELECT user_id FROM users WHERE username = '$user_id'";
-          $result = $conn->query($sql);
+          $conn = dbConnect();
+          $userId = $_SESSION['userid'];
 
-          if ($result->num_rows > 0) {
-               $row = $result->fetch_assoc();
-               $user_id = $row["user_id"];
+          $resultName = dbQuery($conn, 'SELECT user_id FROM users WHERE username = "'. $userId . '";');
+
+          if ($resultName->num_rows > 0) {
+               $row = $resultName->fetch_assoc();
+               $userId = $row["user_id"];
           }
 
-          $query = "SELECT list_name, is_public FROM lists WHERE user_id = " . $user_id;
-          $result = $conn->query($query);
+          $resultItems = dbQuery($conn, 'SELECT list_name, is_public FROM lists WHERE user_id = "' . $userId . '";');
 
-          if ($result->num_rows > 0) {
+          if ($resultItems->num_rows > 0) {
                echo '<div class="row">';
 
-               while ($row = $result->fetch_assoc()) {
+               while ($row = $resultItems->fetch_assoc()) {
                     if ($row['is_public'] == 0) {
                          echo
                          '<div class="px-2 col-10 col-lg-4 mx-auto mx-lg-0 my-2">
@@ -86,7 +86,7 @@ if (!isset($_SESSION["userid"])) {
                echo "<p><strong>You don't have any lists</strong></p>";
           }
 
-          $conn->close();
+          dbClose($conn);
           ?>
 
      </main>
