@@ -17,7 +17,7 @@ function dbConnect() {
     return $conn;
 }
 
-function dbOutput($conn, $sql) {
+function dbQuery($conn, $sql) {
     $result = $conn->query($sql);
     
     if (!$result) {
@@ -26,7 +26,6 @@ function dbOutput($conn, $sql) {
     
     return $result;
 }
-
 
 function dbClose($conn) {
     $conn->close();

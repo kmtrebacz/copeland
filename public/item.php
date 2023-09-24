@@ -28,7 +28,7 @@ session_start();
           if ($_SERVER["REQUEST_METHOD"] == "GET") {
                if (isset($_SESSION["userid"])) {
 
-                    $resultLists = dbOutput($conn, "SELECT lists.list_id, lists.list_name FROM lists JOIN users ON users.user_id = lists.user_id WHERE users.username='" . $_SESSION['userid'] . "';");
+                    $resultLists = dbQuery($conn, "SELECT lists.list_id, lists.list_name FROM lists JOIN users ON users.user_id = lists.user_id WHERE users.username='" . $_SESSION['userid'] . "';");
                     $lists = '';
                     if ($resultLists->num_rows > 0) {
                          while ($row = $resultLists->fetch_assoc()) {
@@ -85,17 +85,12 @@ session_start();
                     </section>';
                }
 
-               require('./../includes/db_connection.php');
-
                $view_count_added = (int)$_GET['view_count'] + 1;
 
-               $sql = 'UPDATE items SET items.items_view_count="' . $view_count_added . '" WHERE items.item_name = "' . $_GET['item_name'] . '"  AND items.size = "' . $_GET['size'] . '"';
+               $sqlViewCount = 'UPDATE items SET items.items_view_count="' . $view_count_added . '" WHERE items.item_name = "' . $_GET['item_name'] . '"  AND items.size = "' . $_GET['size'] . '"';
 
-               $stmt = $conn->prepare($sql);
-
-               $stmt->execute();
-
-               $stmt->close();
+               dbQuery($conn, $sqlViewCount);
+               
                dbClose($conn);
           }
           ?>

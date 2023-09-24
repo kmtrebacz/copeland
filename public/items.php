@@ -32,7 +32,7 @@ session_start();
           }
 
           if (isset($_SESSION["userid"])) {
-               $resultLists = dbOutput($conn, "SELECT lists.list_id, lists.list_name FROM lists JOIN users ON users.user_id = lists.user_id WHERE users.username='" . $_SESSION['userid'] . "';");
+               $resultLists = dbQuery($conn, "SELECT lists.list_id, lists.list_name FROM lists JOIN users ON users.user_id = lists.user_id WHERE users.username='" . $_SESSION['userid'] . "';");
                $lists = '';
                if ($resultLists->num_rows > 0) {
                     while ($row = $resultLists->fetch_assoc()) {
@@ -43,7 +43,7 @@ session_start();
           }
 
 
-          $resultItems = dbOutput($conn, "SELECT items.item_id, items.item_name, categories.category_name, items.size, items.items_view_count FROM items JOIN categories ON categories.category_id = items.category_id ORDER BY items.items_view_count DESC LIMIT 6;");
+          $resultItems = dbQuery($conn, "SELECT items.item_id, items.item_name, categories.category_name, items.size, items.items_view_count FROM items JOIN categories ON categories.category_id = items.category_id ORDER BY items.items_view_count DESC LIMIT 6;");
 
           if ($resultItems->num_rows > 0) {
                echo '<div class="row">';
