@@ -31,7 +31,7 @@ if (!isset($_SESSION["userid"])) {
           $conn = dbConnect();
           $name = $_SESSION["userid"];
 
-          $result = dbQuery($conn, "SELECT * FROM users WHERE username = '$name'");
+          $result = dbOutput($conn, "SELECT * FROM users WHERE username = '$name'");
 
           if ($result->num_rows > 0) {
                $row = $result->fetch_assoc();

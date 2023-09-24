@@ -17,7 +17,7 @@ function dbConnect() {
     return $conn;
 }
 
-function dbQuery($conn, $sql) {
+function dbOutput($conn, $sql) {
     $result = $conn->query($sql);
     
     if (!$result) {

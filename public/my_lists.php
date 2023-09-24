@@ -31,14 +31,14 @@ if (!isset($_SESSION["userid"])) {
           $conn = dbConnect();
           $userId = $_SESSION['userid'];
 
-          $resultName = dbQuery($conn, 'SELECT user_id FROM users WHERE username = "'. $userId . '";');
+          $resultName = dbOutput($conn, 'SELECT user_id FROM users WHERE username = "'. $userId . '";');
 
           if ($resultName->num_rows > 0) {
                $row = $resultName->fetch_assoc();
                $userId = $row["user_id"];
           }
 
-          $resultItems = dbQuery($conn, 'SELECT list_name, is_public FROM lists WHERE user_id = "' . $userId . '";');
+          $resultItems = dbOutput($conn, 'SELECT list_name, is_public FROM lists WHERE user_id = "' . $userId . '";');
 
           if ($resultItems->num_rows > 0) {
                echo '<div class="row">';

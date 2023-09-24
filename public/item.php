@@ -28,7 +28,7 @@ session_start();
           if ($_SERVER["REQUEST_METHOD"] == "GET") {
                if (isset($_SESSION["userid"])) {
 
-                    $resultLists = dbQuery($conn, "SELECT lists.list_id, lists.list_name FROM lists JOIN users ON users.user_id = lists.user_id WHERE users.username='" . $_SESSION['userid'] . "';");
+                    $resultLists = dbOutput($conn, "SELECT lists.list_id, lists.list_name FROM lists JOIN users ON users.user_id = lists.user_id WHERE users.username='" . $_SESSION['userid'] . "';");
                     $lists = '';
                     if ($resultLists->num_rows > 0) {
                          while ($row = $resultLists->fetch_assoc()) {
