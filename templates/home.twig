@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Copeland - Drum sets configurator{% endblock %}
+
+{% block content %}
+    <section>
+        <h2 class="fs-1 ms-2">MOST POPULAR ITEMS</h2>
+        <div class="d-flex">
+            {% if posts %}
+		        {% for post in posts %}
+                    
+                {% endfor %}
+            {% else %}
+                <p>NO ITEMS FOUND</p>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

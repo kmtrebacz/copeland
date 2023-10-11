@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}{{ item.name }} - Copeland - Drum sets configurator{% endblock %}
+
+{% block content %}
+    <section class="py-5"><div class="container px-4 px-lg-5 my-5"><div class="row gx-4 gx-lg-5 align-items-center"><div class="col-md-6"></div><div class="col-md-6"><h1 class="display-5 fw-bolder">{{ item.name }}</h1><h3>{{ item.category }}</h3><p>Size: {{ item.size }}</p><div class="d-flex"><div><div class="position-absolute p-3 border rounded" style="display: none; background: #fff; margin-top: 46px; z-index: 111;"><form method="get" action="./php_inc/add_item_to_list.inc.php"><input type="text" name="item_id" value="' . $_GET['item_id'] . '" class="d-none">
+    {% if isLogged %}
+        {{ item.lists }}
+    {% else %}
+        <strong>You are not logged in</strong>
+    {% endif %}
+    </form></div><div class="popover" data-on="0"><button type="button" class="btn btn-primary">+ Add to list</button></div></div></div></div></div></div></section>
+{% endblock %}

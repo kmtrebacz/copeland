@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}My profile - Copeland - Drum sets configurator{% endblock %}
+
+{% block content %}
+    <h3 class="text-center">SIGN UP</h3>
+
+    {% block error %} {% endblock %}
+
+    <form action="./php_inc/singup.inc.php" method="POST">
+        <input type="text" name="name" id="name" required class="form-control my-2" placeholder="Username">
+                    
+        <input type="email" name="email" id="email" required class="form-control my-2" placeholder="Email">
+
+        <input type="password" name="pwd" id="pwd" required class="form-control my-2" placeholder="Password">
+
+        <input type="password" name="r_pwd" id="r_pwd" required class="form-control my-2" placeholder="Repeat password">
+
+        <button class="w-100 btn btn-lg btn-primary my-2" type="submit" name="submit">Sign in</button>
+    </form>
+{% endblock %}

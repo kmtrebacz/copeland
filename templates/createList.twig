@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Create list - Copeland - Drum sets configurator{% endblock %}
+
+{% block content %}
+    <div class="col-10 col-lg-3 mx-auto">
+        <h3 class="text-center">NEW LIST</h3>
+
+        {% block error %}
+
+        <form action="./php_inc/new_list.inc.php" method="POST">
+            <input type="text" name="list_name" id="list_name" required class="form-control my-2" placeholder="List name">
+
+            <input type="checkbox" role="switch" id="list_public" name="list_public">
+            <label for="list_public">Public</label>
+
+            <button class="w-100 btn btn-lg btn-primary my-2" type="submit" name="submit">Sign in</button>
+        </form>
+    </div>
+{% endblock %}
