@@ -6,7 +6,7 @@
     <div class="col-10 col-lg-3 mx-auto">
         <h3 class="text-center">NEW LIST</h3>
 
-        {% block error %}
+        {% block error %}{% endblock %}
 
         <form action="./php_inc/new_list.inc.php" method="POST">
             <input type="text" name="list_name" id="list_name" required class="form-control my-2" placeholder="List name">
