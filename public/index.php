@@ -6,8 +6,6 @@ require_once "./php_inc/db_functions.inc.php";
 $conn = dbConnect();
 session_start();
 
-$sessionLoggedUserId = $_SESSION["userid"];
-
 function convertToTitleCase($input){
 	$words = explode("_", $input);
 	$formattedWords = array_map("ucwords", $words);
@@ -15,6 +13,8 @@ function convertToTitleCase($input){
 }
 
 if (isset($_SESSION["userid"])) {
+	$sessionLoggedUserId = $_SESSION["userid"];
+
 	$resultLists = dbQuery($conn, "SELECT lists.list_id, lists.list_name FROM lists JOIN users ON users.user_id = lists.user_id WHERE users.username= '$sessionLoggedUserId';");
 	$lists = "";
 	if ($resultLists->num_rows > 0) {

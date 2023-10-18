@@ -6,8 +6,6 @@ require_once "./php_inc/db_functions.inc.php";
 $conn = dbConnect();
 session_start();
 
-$sessionLoggedUserId = $_SESSION["userid"];
-
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	$getItemName = $_GET["item_name"];
 	$getItemCategory = $_GET["category_name"];
@@ -15,6 +13,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	$getItemViewCount = $_GET["view_count"];
 
 	if (isset($_SESSION["userid"])) {
+		
+
 		$resultLists = dbQuery($conn, "SELECT lists.list_id, lists.list_name FROM lists JOIN users ON users.user_id = lists.user_id WHERE users.username= '$sessionLoggedUserId';");
 		$lists = "";
 		if ($resultLists->num_rows > 0) {
