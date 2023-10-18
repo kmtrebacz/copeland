@@ -1,10 +1,10 @@
 <?php
-require_once './../vendor/autoload.php';
+require_once "./../vendor/autoload.php";
 
-$loader = new \Twig\Loader\FilesystemLoader('./../templates/');
+$loader = new \Twig\Loader\FilesystemLoader("./../templates/");
 $twig = new \Twig\Environment($loader, [
-    'cache' => './../cache',
+	"cache" => "./../cache",
 ]);
-$template = $twig->load('createList.twig');
+$template = $twig->load("createList.twig");
 
-echo $template->render();
+print($template->render());

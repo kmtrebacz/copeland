@@ -1,10 +1,10 @@
 <?php
-require_once './../vendor/autoload.php';
+require_once "./../vendor/autoload.php";
 
-$loader = new \Twig\Loader\FilesystemLoader('./../templates/');
+$loader = new \Twig\Loader\FilesystemLoader("./../templates/");
 $twig = new \Twig\Environment($loader, [
-    'cache' => './../cache',
+    	"cache" => "./../cache",
 ]);
-$template = $twig->load('about.twig');
+$template = $twig->load("about.twig");
 
-echo $template->render(['content' => 'test about']);
+print($template->render(["content" => "test about"]));
