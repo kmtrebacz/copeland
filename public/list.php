@@ -1,65 +1,23 @@
 <?php
-session_start();
-?>
+require_once(__DIR__ . "/vendor/autoload.php");
+require_once(__DIR__ . "/public/php_inc/db_functions.inc.php");
 
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>LIST - Copeland - Drum sets configurator</title>
-	<?php include_once "./../includes/bootstrap_css.html"; ?>
-</head>
+$conn = dbConnect();
 
-<body>
+		
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+	$getListName = $_GET["list_name"];
+	$getListIsPublic = $_GET["is_public"];
 
-	<?php
-	include_once "./../includes/header/header_choosed.inc.php";
-	?>
+	$loader = new \Twig\Loader\FilesystemLoader("./../templates/");
+	$twig = new \Twig\Environment($loader, [
+		"cache" => "./../cache",
+	]);
+	$template = $twig->load("list.twig");
 
-	<main class="container py-3">
-
-		<?php
-		if ($_SERVER["REQUEST_METHOD"] == "GET") {
-			if ($_GET["is_public"] == "0") {
-			    print("<section class="py-5">
-			    <div class="container px-4 px-lg-5 my-5">
-			    <div class="row gx-4 gx-lg-5 align-items-center">
-			    <div class="col-md-12">
-			    <h1 class="display-5 fw-bolder">" . $_GET["list_name"] . "</h1>
-			    <h4 class="my-2"><i class="bi bi-lock"></i> Private</h4>
-			    <div class="d-flex">
-			    </div>
-			    </div>
-			    </div>
-			    </div>
-			    </section>");
-			} else {
-			    print("<section class="py-5">
-			    <div class="container px-4 px-lg-5 my-5">
-			    <div class="row gx-4 gx-lg-5 align-items-center">
-			    <div class="col-md-12">
-			    <h1 class="display-5 fw-bolder">" . $_GET["list_name"] . "</h1>
-			    <h4 class="my-2"><i class="bi bi-globe2"></i> Public</h4>
-			    <div class="d-flex">
-			    </div>
-			    </div>
-			    </div>
-			    </div>
-			    </section>");
-			}
-		}
-		?>
-
-	</main>
-
-	<?php
-	include_once "./../includes/footer.html";
-	?>
-
-	<script src="./../js/popover.js"></script>
-	<?php include_once "./../includes/bootstrap_js.html"; ?>
-</body>
-
-</html>
+	print($template->render([
+		'listName'      => $getListName,
+		'isListPrivate' => $getListIsPublic,
+	]));
+}
