@@ -4,7 +4,6 @@ require_once "./php_inc/db_functions.inc.php";
 
 
 $conn = dbConnect();
-session_start();
 
 function convertToTitleCase($input){
 	$words = explode("_", $input);

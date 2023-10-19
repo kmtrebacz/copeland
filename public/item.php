@@ -1,10 +1,9 @@
 <?php
-require_once "./../vendor/autoload.php";
-require_once "./php_inc/db_functions.inc.php";
+require_once(__DIR__ . "/vendor/autoload.php");
+require_once(__DIR__ . "/public/php_inc/db_functions.inc.php");
 
 
 $conn = dbConnect();
-session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	$getItemName = $_GET["item_name"];
@@ -13,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	$getItemViewCount = $_GET["view_count"];
 
 	if (isset($_SESSION["userid"])) {
-		
+		$sessionLoggedUserId = $_SESSION["userid"];
 
 		$resultLists = dbQuery($conn, "SELECT lists.list_id, lists.list_name FROM lists JOIN users ON users.user_id = lists.user_id WHERE users.username= '$sessionLoggedUserId';");
 		$lists = "";
@@ -36,9 +35,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	$template = $twig->load("item.twig");
 
 	print($template->render([
-		"name" => $_GET["item_name"],
-		"category" => $_GET["category_name"],
-		"size" => $_GET["size"],
+		"name"       => $_GET["item_name"],
+		"category"   => $_GET["category_name"],
+		"size"       => $_GET["size"],
 		"view_count" => $_GET["view_count"],
 	]));
 
