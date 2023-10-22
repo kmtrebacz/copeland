@@ -1,6 +1,6 @@
 <?php
-require_once(__DIR__ . "/vendor/autoload.php");
-require_once(__DIR__ . "/public/php_inc/db_functions.inc.php");
+require_once "./../vendor/autoload.php";
+require_once "./php_inc/db_functions.inc.php";
 
 
 $conn = dbConnect();

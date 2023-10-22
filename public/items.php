@@ -1,6 +1,6 @@
 <?php
-require_once(__DIR__ . "/vendor/autoload.php");
-require_once(__DIR__ . "/public/php_inc/db_functions.inc.php");
+require_once "./../vendor/autoload.php";
+require_once "./php_inc/db_functions.inc.php";
 
 
 $conn = dbConnect();
@@ -32,7 +32,7 @@ $resultItems = dbQuery($conn, "SELECT items.item_id, items.item_name, categories
 
 $loader = new \Twig\Loader\FilesystemLoader("./../templates/");
 $twig = new \Twig\Environment($loader, [
-    "cache" => "./../cache",
+	"cache" => "./../cache",
 ]);
 $template = $twig->load("home.twig");
 

@@ -32,7 +32,7 @@ $resultItems = dbQuery($conn, "SELECT items.item_id, items.item_name, categories
 
 $loader = new \Twig\Loader\FilesystemLoader("./../templates/");
 $twig = new \Twig\Environment($loader, [
-    "cache" => "./../cache",
+	"cache" => "./../cache",
 ]);
 $template = $twig->load("home.twig");
 
