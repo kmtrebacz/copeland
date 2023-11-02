@@ -1,11 +1,15 @@
 {% extends "base.html" %}
 
-{% block title %}My profile - Copeland - Drum sets configurator{% endblock %}
+{% block title %}Sign Up - Copeland - Drum sets configurator{% endblock %}
+
+{% block nav %}
+     {% include "header/choosed_header.twig" %}
+{% endblock %}
 
 {% block content %}
     <h3 class="text-center">SIGN UP</h3>
 
-    <p><strong>{% block error %} {% endblock %}</strong></p>
+    {% block error %} {% endblock %}
 
     <form action="./php_inc/singup.inc.php" method="POST">
         <input type="text" name="name" id="name" required class="form-control my-2" placeholder="Username">

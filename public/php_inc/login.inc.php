@@ -1,15 +1,14 @@
 <?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	require_once "./db_functions.inc.php";
+	require_once "./functions.inc.php";
 
-if (isset($_POST["submit"])) {
+	$conn = dbConnect();
 
 	$name = $_POST["name"];
 	$pass = $_POST["password"];
 
-	require_once "./../../includes/db_connection.php";
-	require_once "./functions.inc.php";
-
 	loginUser($conn, $name, $pass);
-
 }
 else {
 	header("location: ./../login.php");

@@ -1,12 +1,14 @@
 <?php
 if (isset($_POST["submit"])) {
-	$name = $_POST["name"];
-	$pass = $_POST["pwd"];
-	$r_password = $_POST["r_pwd"];
-	$email = $_POST["email"];
-
-	require_once "./../../includes/db_connection.php";
+	require_once "./db_functions.inc.php";
 	require_once "./functions.inc.php";
+
+	$conn = dbConnect();
+
+	$name       = $_POST["name"];
+	$pass       = $_POST["pwd"];
+	$r_password = $_POST["r_pwd"];
+	$email      = $_POST["email"];
 
 	if (invalidUid($name) === true) {
 		header("location: ./../signup.php?error=invaliduid");

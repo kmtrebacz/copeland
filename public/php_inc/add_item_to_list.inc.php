@@ -1,6 +1,9 @@
 <?php
 session_start();
-require_once "./../../includes/db_connection.php";
+
+require_once "./db_functions.inc.php";
+
+$conn = dbConnect();
 
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
 	foreach ($_GET as $paramName => $paramValue) {

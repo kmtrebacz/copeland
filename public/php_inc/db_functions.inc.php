@@ -1,8 +1,8 @@
 <?php
 $servername = "localhost";
-$username = "root";
-$password = "";
-$database = "copeland";
+$username   = "root";
+$password   = "";
+$database   = "copeland";
 
 function dbConnect() {
 	global $servername, $username, $password, $database;
@@ -26,8 +26,3 @@ function dbQuery($conn, $sql) {
 	
 	return $result;
 }
-
-function dbClose($conn) {
-    	$conn->close();
-}
-?>

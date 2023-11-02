@@ -1,9 +1,10 @@
 <?php
-if (!isset($_SESSION["userid"])) header("location: ./../index.php");
+session_start();
+
+if (!isset($_SESSION["userId"])) header("location: ./../index.php");
 
 require_once "./../vendor/autoload.php";
 require_once "./php_inc/db_functions.inc.php";
-
 
 function errorHandler(){
 	if (isset($_GET["error"])) {
@@ -39,7 +40,6 @@ $twig = new \Twig\Environment($loader, [
 $template = $twig->load("my_profile.twig");
 
 print($template->render([
-	"error" => errorHandler(),
+	"isLogged" => isset($_SESSION["userId"]) ? true : false,
+	"error"    => errorHandler(),
 ]));
-
-

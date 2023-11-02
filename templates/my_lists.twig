@@ -2,6 +2,10 @@
 
 {% block title %}My Lists - Copeland - Drum sets configurator{% endblock %}
 
+{% block nav %}
+     {% include "header/choosed_header.twig" %}
+{% endblock %}
+
 {% block content %}
     <div class="row">
         {% for list in lists %}

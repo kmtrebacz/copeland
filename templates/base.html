@@ -15,9 +15,19 @@
 
      <header class="p-3 mb-3 border-bottom">
           <div class="container">
-               {% block nav %}
+               <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                    <a href="./index.php" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none me-3">
+                         <img src="./../img/logo.png" alt="Logo" height="40px">
+                    </a>
 
-               {% endblock %}
+                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                         <li><a href="./index.php" class="nav-link px-3 link-dark">HOME</a></li>
+                         <li><a href="./items.php" class="nav-link px-3 link-dark">ITEMS</a></li>
+                         <li><a href="./about.php" class="nav-link px-3 link-dark">ABOUT</a></li>
+                    </ul>
+
+                    {% block nav %}{% endblock %}
+               </div>
           </div>
      </header>
 

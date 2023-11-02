@@ -1,7 +1,8 @@
 <?php
+session_start();
+
 require_once "./../vendor/autoload.php";
 require_once "./php_inc/db_functions.inc.php";
-
 
 $conn = dbConnect();
 
@@ -11,20 +12,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	$getItemSize = $_GET["size"];
 	$getItemViewCount = $_GET["view_count"];
 
-	if (isset($_SESSION["userid"])) {
-		$sessionLoggedUserId = $_SESSION["userid"];
-
-		$resultLists = dbQuery($conn, "SELECT lists.list_id, lists.list_name FROM lists JOIN users ON users.user_id = lists.user_id WHERE users.username= '$sessionLoggedUserId';");
-		$lists = "";
-		if ($resultLists->num_rows > 0) {
-			while ($row = $resultLists->fetch_assoc()) {
-				$rowListName = $row["list_name"];
-				$rowListId = $row["list_id"];
+	if (isset($_SESSION["userId"])) {
+		$sessionLoggeduserId = $_SESSION["userId"];
 	
-				$lists .= "<input type='checkbox' name='item_name_$rowListName' value='$rowListId'>  <label>$rowListName</label><br>";
-			}
-			$lists .= "<input type='submit' class='mt-2 btn btn-primary' value='Add to list'>";
-		}
+		$resultLists = dbQuery($conn, "SELECT lists.list_id, lists.list_name FROM lists JOIN users ON users.user_id = lists.user_id WHERE users.username= '$sessionLoggeduserId';");
+		$lists = "";
 	}
 
 
@@ -35,6 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	$template = $twig->load("item.twig");
 
 	print($template->render([
+		"isLogged"   => isset($_SESSION["userId"]) ? true : false,
+		"lists"      => isset($resultLists) ? $resultLists : NULL,
 		"name"       => $_GET["item_name"],
 		"category"   => $_GET["category_name"],
 		"size"       => $_GET["size"],
@@ -47,6 +41,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 	dbQuery($conn, $sqlViewCount);
 			
-	dbClose($conn);
+	$conn->close();
 }
 ?>

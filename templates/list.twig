@@ -2,6 +2,10 @@
 
 {% block title %}{{ listName }} - Copeland - Drum sets configurator{% endblock %}
 
+{% block nav %}
+     {% include "header/choosed_header.twig" %}
+{% endblock %}
+
 {% block content %}
     <section class="py-5"><div class="container px-4 px-lg-5 my-5"><div class="row gx-4 gx-lg-5 align-items-center"><div class="col-md-12"><h1 class="display-5 fw-bolder">{{ listName }}</h1><h4 class="my-2">
     {% if isListPrivate is defined %}

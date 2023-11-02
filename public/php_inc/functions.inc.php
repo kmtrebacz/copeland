@@ -28,7 +28,7 @@ function passMatch($pass, $r_password) {
 
 function uidExists($name, $conn) {
 	$result = false;
-	$sql = "SELECT * FROM users WHERE username = $name;";
+	$sql = "SELECT * FROM users WHERE users.username = '$name';";
 
 	$result = $conn->query($sql);
 	
@@ -42,7 +42,7 @@ function uidExists($name, $conn) {
 
 function emailExists($email, $conn) {
 	$result = false;
-	$sql = "SELECT * FROM users WHERE email = $email";
+	$sql = "SELECT * FROM users WHERE email = '$email'";
 
 	$result = $conn->query($sql);
 	
@@ -87,7 +87,7 @@ function loginUser($conn, $name, $pass) {
 		exit();
 	}
 
-	$sql = "SELECT password FROM users WHERE username = $name";
+	$sql = "SELECT password FROM users WHERE username = '$name'";
 	
 	$result = $conn->query($sql);
 
@@ -104,7 +104,7 @@ function loginUser($conn, $name, $pass) {
 	}
 	else if($checkPass === true)  {
 		session_start();
-		$_SESSION["userid"] = $name;
+		$_SESSION["userId"] = $name;
 		header("location: ./../index.php");
 		exit();
 	}

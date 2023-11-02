@@ -1,21 +1,24 @@
 <?php
 session_start();
+
 require_once "./../../includes/db_connection.php";
 
-$list_name = $_POST["list_name"];
-$list_public = $_POST["list_public"];
+$conn = dbConnect();
+
+$list_name           = $_POST["list_name"];
+$list_public         = $_POST["list_public"];
 $list_public_checked = 0;
-$user_id = $_SESSION["userid"];
+$user_id             = $_SESSION["userId"];
 
 if (isset($_POST["list_public"]) && $_POST["list_public"] == "on") {
 	$list_public_checked = 1;
 }
 
-$sql = "SELECT user_id FROM users WHERE username = $user_id;";
+$sql    = "SELECT user_id FROM users WHERE username = $user_id;";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-	$row = $result->fetch_assoc();
+	$row     = $result->fetch_assoc();
 	$user_id = $row["user_id"];
 }
 
