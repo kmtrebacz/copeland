@@ -19,7 +19,7 @@ if (isset($_SESSION["userId"])) {
 	$lists = "";
 }
 
-$resultItems = dbQuery($conn, "SELECT items.item_id, items.item_name, categories.category_name, items.size, items.items_view_count FROM items JOIN categories ON categories.category_id = items.category_id ORDER BY items.items_view_count DESC LIMIT 6;");
+$resultItems = dbQuery($conn, "SELECT items.item_id, items.item_name, categories.category_name, items.size FROM items JOIN categories ON categories.category_id = items.category_id ORDER BY items.items_view_count DESC LIMIT 6;");
 
 
 $loader = new \Twig\Loader\FilesystemLoader("./../templates/");

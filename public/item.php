@@ -10,7 +10,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	$getItemName = $_GET["item_name"];
 	$getItemCategory = $_GET["category_name"];
 	$getItemSize = $_GET["size"];
-	$getItemViewCount = $_GET["view_count"];
 
 	if (isset($_SESSION["userId"])) {
 		$sessionLoggeduserId = $_SESSION["userId"];
@@ -32,14 +31,18 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 		"name"       => $_GET["item_name"],
 		"category"   => $_GET["category_name"],
 		"size"       => $_GET["size"],
-		"view_count" => $_GET["view_count"],
 	]));
 
-	$viewCountAdded = (int)$_GET["view_count"] + 1;
+	$sqlViewCount = "SELECT items.items_view_count FROM items WHERE items.item_name = '$getItemName' AND items.size = '$getItemSize' LIMIT 1;";
+	$sqlViewCountResult = dbQuery($conn, $sqlViewCount);
+	$sqlViewCountResult = mysqli_fetch_row($sqlViewCountResult);
 
-	$sqlViewCount = "UPDATE items SET items.items_view_count=$viewCountAdded WHERE items.item_name = '$getItemName' AND items.size = '$getItemSize'";
 
-	dbQuery($conn, $sqlViewCount);
+	$viewCountAdded = (int)$sqlViewCountResult[0] + 1;
+
+	$sqlViewCountUpdate = "UPDATE items SET items.items_view_count=$viewCountAdded WHERE items.item_name = '$getItemName' AND items.size = '$getItemSize'";
+
+	dbQuery($conn, $sqlViewCountUpdate);
 			
 	$conn->close();
 }
