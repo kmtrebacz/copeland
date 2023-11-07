@@ -16,13 +16,3 @@ function dbConnect() {
 
 	return $conn;
 }
-
-function dbQuery($conn, $sql) {
-	$result = $conn->query($sql);
-	
-	if (!$result) {
-		die("Query failed: " . $conn->error);
-	}
-	
-	return $result;
-}

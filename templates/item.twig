@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-    <section class="py-5"><div class="container px-4 px-lg-5 my-5"><div class="row gx-4 gx-lg-5 align-items-center"><div class="col-md-6"></div><div class="col-md-6"><h1 class="display-5 fw-bolder">{{ name }}</h1><h3>{{ category }}</h3><p>Size: {{ size }}</p><div class="d-flex"><div><div class="position-absolute p-3 border rounded" style="display: none; background: #fff; margin-top: 46px; z-index: 111;"><form method="get" action="./php_inc/add_item_to_list.inc.php">
+    <section class="py-5"><div class="container px-4 px-lg-5 my-5"><div class="row gx-4 gx-lg-5 align-items-center"><div class="col-md-6"></div><div class="col-md-6"><h1 class="display-5 fw-bolder">{{ name }}</h1><h3>{{ category }}</h3><p>Size: {{ size }}</p><div class="d-flex"><div><div class="position-absolute p-3 border rounded" style="display: none; background: #fff; margin-top: 46px; z-index: 111;"><form method="get" action="./include/add_item_to_list.inc.php">
 	{% if lists is not null %}
 		{% for item in lists %}
 			<input type='checkbox' name='item_name_{{ item.list_name }}' value='{{ item.list_id }}'>  <label>{{ item.list_name }}</label><br>

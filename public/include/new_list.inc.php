@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once "./../../includes/db_connection.php";
+require_once "./db_connection.inc.php";
 
 $conn = dbConnect();
 
@@ -14,7 +14,7 @@ if (isset($_POST["list_public"]) && $_POST["list_public"] == "on") {
 	$list_public_checked = 1;
 }
 
-$sql    = "SELECT user_id FROM users WHERE username = $user_id;";
+$sql    = "SELECT user_id FROM users WHERE username = '$user_id';";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -22,7 +22,7 @@ if ($result->num_rows > 0) {
 	$user_id = $row["user_id"];
 }
 
-$sql = "INSERT INTO `lists`(`user_id`, `list_name`, `is_public`) VALUES ($user_id, $list_name, $list_public_checked);";
+$sql = "INSERT INTO `lists`(`user_id`, `list_name`, `is_public`) VALUES ('$user_id', '$list_name', '$list_public_checked');";
 
 $stmt = $conn->prepare($sql);
 

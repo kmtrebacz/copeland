@@ -1,6 +1,6 @@
 <?php
 if (isset($_POST["submit"])) {
-	require_once "./db_functions.inc.php";
+	require_once "./db_connection.inc.php";
 	require_once "./functions.inc.php";
 
 	$conn = dbConnect();
