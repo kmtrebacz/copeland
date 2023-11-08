@@ -3,19 +3,23 @@
 {% block title %}My Lists - Copeland - Drum sets configurator{% endblock %}
 
 {% block nav %}
-     {% include "header/choosed_header.twig" %}
+    {% include "header/choosed_header.twig" %}
 {% endblock %}
 
 {% block content %}
     <div class="row">
-        {% for list in lists %}
-            <div class="px-2 col-10 col-lg-4 mx-auto mx-lg-0 my-2"><div class="card"><div class="card-body"><h4 class="m-0" class="card-title">{{ list.list_name }}</h4><p class="my-2" style="font-size: 15px;">
-            {% if list.is_public == 0 %}
-                <i class="bi bi-lock"></i> Private
-            {% else %}
-                <i class="bi bi-globe2"></i> Public
-            {% endif %}
-            </p><form method="get" action="list.php"><input type="hidden" name="list_name" value=x"{{ list.list_name }}"><input type="hidden" name="is_public" value="{{ list.is_public }}"><a class="link-offset-1 mt-1" class="card-title"><input type="submit" class="m-0 p-0 border-0 text-primary bg-white text-decoration-underline" value="See more"></a></form></div></div></div> 
-        {% endfor %}
+        {% if lists is defined %}
+            {% for list in lists %}
+                <div class="px-2 col-10 col-lg-4 mx-auto mx-lg-0 my-2"><div class="card"><div class="card-body"><h4 class="m-0" class="card-title">{{ list.list_name }}</h4><p class="my-2" style="font-size: 15px;">
+                {% if list.is_public == 0 %}
+                    <i class="bi bi-lock"></i> Private
+                {% else %}
+                    <i class="bi bi-globe2"></i> Public
+                {% endif %}
+                </p><form method="get" action="list.php"><input type="hidden" name="list_name" value="{{ list.list_name }}"><input type="hidden" name="is_public" value="{{ list.is_public }}"><a class="link-offset-1 mt-1" class="card-title"><input type="submit" class="m-0 p-0 border-0 text-primary bg-white text-decoration-underline" value="See more"></a></form></div></div></div> 
+            {% endfor %}
+        {% else %}
+			<p>You don't have any lists</p>
+		{% endif %}
     </div>
 {% endblock %}
