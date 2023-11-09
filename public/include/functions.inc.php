@@ -99,7 +99,7 @@ function loginUser($conn, $name, $pass) {
 	$checkPass = password_verify($pass, $passHash);
 
 	if ($checkPass === false) {
-	    header("location: ./../login.php?error=wronglogin");
+	    header("location: ./../login.php?error=wrongpass");
 	    exit();
 	}
 	else if($checkPass === true)  {
