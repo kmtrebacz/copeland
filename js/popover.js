@@ -1,14 +1,14 @@
-let es = document.querySelectorAll(".popover")
+let popoverButtons = document.querySelectorAll(".popover")
 
-es.forEach(e => {
-	e.addEventListener('click', () => {
-		if (e.dataset.on == "0") {
-			e.parentElement.firstElementChild.style.display = "block"
-			e.dataset.on = "1"
+popoverButtons.forEach(popoverButton => {
+	popoverButton.addEventListener('click', () => {
+		if (popoverButton.dataset.on == "0") {
+			popoverButton.parentElement.firstElementChild.style.display = "block"
+			popoverButton.dataset.on = "1"
 		}
 		else {
-			e.parentElement.firstElementChild.style.display = "none"
-			e.dataset.on = "0"
+			popoverButton.parentElement.firstElementChild.style.display = "none"
+			popoverButton.dataset.on = "0"
 		}
 	})
 })
