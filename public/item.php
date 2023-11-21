@@ -4,6 +4,12 @@ session_start();
 require_once "./../vendor/autoload.php";
 require_once "./include/header.inc.php";
 
+function increaseViewCount($conn, $value, $id) {
+     $value = (int)$value + 1;
+	$sqlViewCountUpdate = "UPDATE items SET items.items_view_count=$value WHERE items.item_id = $id";
+	$conn->query($sqlViewCountUpdate);
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	$getItemId = $_GET["item_id"];
 
@@ -30,11 +36,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	]));
 
 	$sqlViewCount = "SELECT items.items_view_count FROM items WHERE items.item_name = '$resultItemName' AND items.size = '$resultItemSize' LIMIT 1;";
-	$sqlViewCountResult = $conn->query($sqlViewCount);
-	$sqlViewCountResult = mysqli_fetch_row($sqlViewCountResult);
+	$sqlViewCountResult = $conn->query($sqlViewCount)->fetch_assoc();
 
-	$viewCountAdded = (int)$sqlViewCountResult[0] + 1;
-	$sqlViewCountUpdate = "UPDATE items SET items.items_view_count=$viewCountAdded WHERE items.item_name = '$resultItemName' AND items.size = '$resultItemSize'";
-	$conn->query($sqlViewCountUpdate);
+     increaseViewCount($conn, $sqlViewCountResult["items_view_count"], $getItemId);
 }
 ?>
