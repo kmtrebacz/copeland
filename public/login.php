@@ -4,7 +4,7 @@ session_start();
 require_once "./../vendor/autoload.php";
 require_once "./include/header.inc.php";
 
-function errorHandler(){
+function errorHandler() {
 	if (isset($_GET["error"])) {
 		switch (isset($_GET["error"])) {
 			case $_GET["error"] == "wronglogin":

@@ -1,9 +1,9 @@
 <?php
-if (isset($_POST["submit"])) {
+if (isset($_POST["submit"]) && $_SERVER["REQUEST_METHOD"] === "POST") {
 	require_once "./db_connection.inc.php";
 	require_once "./functions.inc.php";
 
-	$conn = dbConnect();
+	$db = dbConnect();
 
 	$name       = $_POST["name"];
 	$pass       = $_POST["pwd"];
@@ -22,16 +22,16 @@ if (isset($_POST["submit"])) {
 		header("location: ./../signup.php?error=passwordsdontmatch");
 		exit();
 	}
-	if (uidExists($name, $conn) === true) {
+	if (uidExists($name, $db) === true) {
 		header("location: ./../signup.php?error=usernametaken");
 		exit();
 	}
-	if (emailExists($email, $conn) === true) {
+	if (emailExists($email, $db) === true) {
 		header("location: ./../signup.php?error=emailwasused");
 		exit();
 	}
 
-	createUser($name, $pass, $email, $conn);
+	createUser($name, $pass, $email, $db);
 }
 else {
     	header("location: ./../signup.php");

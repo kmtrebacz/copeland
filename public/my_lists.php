@@ -8,7 +8,7 @@ require_once "./include/header.inc.php";
 
 $userId = $_SESSION["userId"];
 
-$resultItems = $conn->query("SELECT lists.list_name, lists.is_public FROM lists WHERE lists.user_id = (SELECT users.user_id FROM users WHERE users.username = '$userId');");
+$resultItems = dbQuery("SELECT lists.list_name, lists.is_public FROM lists WHERE lists.user_id = (SELECT users.user_id FROM users WHERE users.username = ?)", [$userId]);
 
 $template = $twig->load("my_lists.twig");
 print($template->render([

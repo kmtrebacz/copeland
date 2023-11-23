@@ -4,7 +4,7 @@ session_start();
 require_once "./../vendor/autoload.php";
 require_once "./include/header.inc.php";
 
-function convertToTitleCase($input){
+function convertToTitleCase($input) {
 	$words = explode("_", $input);
 	$formattedWords = array_map("ucwords", $words);
 	return implode(" ", $formattedWords);
@@ -13,15 +13,14 @@ function convertToTitleCase($input){
 if (isset($_SESSION["userId"])) {
 	$sessionLoggeduserId = $_SESSION["userId"];
 
-	$resultLists = $conn->query("SELECT lists.list_id, lists.list_name FROM lists JOIN users ON users.user_id = lists.user_id WHERE users.username= '$sessionLoggeduserId';");
-	$lists = "";
+	$dbResultLists = dbQuery("SELECT lists.list_id, lists.list_name FROM lists JOIN users ON users.user_id = lists.user_id WHERE users.username= ?;", [$sessionLoggeduserId]);
 }
 
-$resultItems = $conn->query("SELECT items.item_id, items.item_name, categories.category_name, items.size FROM items JOIN categories ON categories.category_id = items.category_id ORDER BY items.items_view_count DESC LIMIT 6;");
+$dbResultItems = dbQuery("SELECT items.item_id, items.item_name, categories.category_name, items.size FROM items JOIN categories ON categories.category_id = items.category_id ORDER BY items.items_view_count DESC LIMIT 6;");
 
 $template = $twig->load("home.twig");
 print($template->render([
 	"isLogged" => isset($_SESSION["userId"]) ? true : false,
 	"lists"    => isset($resultLists) ? $resultLists : NULL,
-	"items"    => $resultItems,
+	"items"    => $dbResultItems,
 ]));

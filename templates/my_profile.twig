@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-     {% for user in users %}
-          <div class="col-4"><table class="table table-striped"><tbody><tr><th scope="row">Username</th><td>{{ user.username }}</td></tr><tr><th scope="row">Email</th><td>{{ user.email }}</td></tr></tbody></table></div>
-     {% endfor %}
+     {% if info is defined %}
+          <div class="col-4"><table class="table table-striped"><tbody><tr><th scope="row">Username</th><td>{{ info.username }}</td></tr><tr><th scope="row">Email</th><td>{{ info.email }}</td></tr></tbody></table></div>
+     {% endif %}
 {% endblock %}

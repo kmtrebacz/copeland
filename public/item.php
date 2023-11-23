@@ -4,10 +4,17 @@ session_start();
 require_once "./../vendor/autoload.php";
 require_once "./include/header.inc.php";
 
-function increaseViewCount($conn, $value, $id) {
+function convertToTitleCase($input) {
+	$words = explode("_", $input);
+	$formattedWords = array_map("ucwords", $words);
+	return implode(" ", $formattedWords);
+}
+
+function increaseViewCount($value, $id) {
+	global $db;
      $value = (int)$value + 1;
 	$sqlViewCountUpdate = "UPDATE items SET items.items_view_count=$value WHERE items.item_id = $id";
-	$conn->query($sqlViewCountUpdate);
+	dbQuery("UPDATE items SET items.items_view_count=$value WHERE items.item_id = ?", [$id]);
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
@@ -16,10 +23,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	if (isset($_SESSION["userId"])) {
 		$sessionLoggeduserId = $_SESSION["userId"];
 	
-		$resultLists = $conn->query("SELECT lists.list_id, lists.list_name FROM lists JOIN users ON users.user_id = lists.user_id WHERE users.username= '$sessionLoggeduserId';");
+		$dbResultLists = dbQuery("SELECT lists.list_id, lists.list_name FROM lists JOIN users ON users.user_id = lists.user_id WHERE users.username= ?", [$sessionLoggeduserId]);
 	}
 
-	$resultItems = $conn->query("SELECT items.item_name, categories.category_name, items.size FROM items JOIN categories ON categories.category_id = items.category_id WHERE items.item_id = '$getItemId' LIMIT 1;")->fetch_assoc();
+	$resultItems = dbQuery("SELECT items.item_name, categories.category_name, items.size FROM items JOIN categories ON categories.category_id = items.category_id WHERE items.item_id = ? LIMIT 1;", [$getItemId]);
 
 	$resultItemName     = $resultItems["item_name"];
 	$resultItemCategory = $resultItems["category_name"];
@@ -30,14 +37,13 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 		"isLogged"   => isset($_SESSION["userId"]) ? true : false,
 		"lists"      => isset($resultLists) ? $resultLists : NULL,
 		"name"       => $resultItemName,
-		"category"   => $resultItemCategory,
+		"category"   => convertToTitleCase($resultItemCategory),
 		"size"       => $resultItemSize,
 		"itemId"     => isset($_SESSION["userId"]) ? $_SESSION["userId"] : false,
 	]));
 
-	$sqlViewCount = "SELECT items.items_view_count FROM items WHERE items.item_name = '$resultItemName' AND items.size = '$resultItemSize' LIMIT 1;";
-	$sqlViewCountResult = $conn->query($sqlViewCount)->fetch_assoc();
+	$sqlViewCountResult = dbQuery("SELECT items.items_view_count FROM items WHERE items.item_name = ? AND items.size = ? LIMIT 1", [$resultItemName, $resultItemSize]);
 
-     increaseViewCount($conn, $sqlViewCountResult["items_view_count"], $getItemId);
+     increaseViewCount($sqlViewCountResult["items_view_count"], $getItemId);
 }
 ?>
