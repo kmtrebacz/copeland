@@ -1,12 +1,10 @@
 <?php
 function invalidUid($name) {
-	$result = true;
-
-	if (preg_match("/^[a-zA-Z0-9]*$/", $name)) {
+	if (preg_match("/^[a-zA-Z0-9]{2,50}$/", $name)) {
 		$result = false;
 	}
 	else if ($name = "admin") {
-		$result = false;
+		$result = true;
 	}
 
 	return $result;
@@ -35,26 +33,21 @@ function passMatch($pass, $r_password) {
 function uidExists($name) {
      global $db;
 
-	$result = false;
 	$dbResult = dbQuery("SELECT * FROM users WHERE users.username = ?;", [$name]);
 	
-	if (sizeof($dbResult) > 0) {
-		$result = true;
-	}
+	$dbResult === NULL ? $result = false: $result = true;
 	
 	return $result;
 	
 }
 
-function emailExists($email) {
+function emailExists($name, $email) {
      global $db;
 
 	$result = false;
-	$dbResult = dbQuery("SELECT * FROM users WHERE users.username = ?;", [$name]);
-	$result = false;
 	$dbResult = dbQuery("SELECT * FROM users WHERE email = ?", [$email]);
 	
-	if (sizeof($dbResult) > 0) {
+	if ($dbResult != NULL) {
 		$result = true;
 	}
 	
@@ -64,13 +57,11 @@ function emailExists($email) {
 function createUser($name, $pass, $email) {
      global $db;
 
+	$hashedPass = password_hash($pass, PASSWORD_DEFAULT);
+
 	$dbResult = dbQuery("INSERT INTO users (username, password, email) VALUES (?, ?, ?)", [$name, $hashedPass, $email]);
  
-	if ($dbResult === NULL) {
-		header("location: ./../signup.php?error=none");
-	} else {
-		header("location: ./../signup.php?error=stmtfailed");
-	}
+	if ($dbResult === NULL) header("location: ./../signup.php?error=none");
 }
 
 function loginUser($name, $pass) {
@@ -83,8 +74,8 @@ function loginUser($name, $pass) {
 		exit();
 	}
 
-	$dbResult = dbQuery("SELECT password FROM users WHERE username = ?", [$name]);
-	if (sizeof($dbResult) === 1) $passHash = $dbResult["password"];
+	$dbResult = dbQuery("SELECT password FROM users WHERE username = ? LIMIT 1", [$name]);
+	if (sizeOf($dbResult) === 1) $passHash = $dbResult["password"];
 	$checkPass = password_verify($pass, $passHash);
 
 	if ($checkPass === false) {

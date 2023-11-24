@@ -22,16 +22,16 @@ if (isset($_POST["submit"]) && $_SERVER["REQUEST_METHOD"] === "POST") {
 		header("location: ./../signup.php?error=passwordsdontmatch");
 		exit();
 	}
-	if (uidExists($name, $db) === true) {
+	if (uidExists($name) === true) {
 		header("location: ./../signup.php?error=usernametaken");
 		exit();
 	}
-	if (emailExists($email, $db) === true) {
+	if (emailExists($name, $email) === true) {
 		header("location: ./../signup.php?error=emailwasused");
 		exit();
 	}
 
-	createUser($name, $pass, $email, $db);
+	createUser($name, $pass, $email);
 }
 else {
     	header("location: ./../signup.php");

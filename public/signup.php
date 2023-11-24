@@ -19,7 +19,7 @@ function errorHandler() {
 				return "Passwords don't match!";
 
 			case $_GET["error"] == "usernametaken":
-				return "Choose a proper username!";
+				return "Username have was taken!";
 
 			case $_GET["error"] == "emailwasused":
 				return "This email address is already associated with an existing account!";
