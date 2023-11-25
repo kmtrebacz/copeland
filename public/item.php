@@ -12,7 +12,7 @@ function convertToTitleCase($input) {
 
 function increaseViewCount($value, $id) {
 	global $db;
-     $value = (int)$value + 1;
+	$value = (int)$value + 1;
 	$sqlViewCountUpdate = "UPDATE items SET items.items_view_count=$value WHERE items.item_id = $id";
 	dbQuery("UPDATE items SET items.items_view_count=$value WHERE items.item_id = ?", [$id]);
 }
@@ -34,8 +34,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 	$template = $twig->load("item.twig");
 	print($template->render([
-		"isLogged"   => isset($_SESSION["userId"]) ? true : false,
-		"lists"      => isset($resultLists) ? $resultLists : NULL,
+		"isLogged"   => isset($_SESSION["userId"]),
+		"lists"      => isset($dbResultLists) ? $dbResultLists : NULL,
 		"name"       => $resultItemName,
 		"category"   => convertToTitleCase($resultItemCategory),
 		"size"       => $resultItemSize,
@@ -44,6 +44,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 	$sqlViewCountResult = dbQuery("SELECT items.items_view_count FROM items WHERE items.item_name = ? AND items.size = ? LIMIT 1", [$resultItemName, $resultItemSize]);
 
-     increaseViewCount($sqlViewCountResult["items_view_count"], $getItemId);
+	 increaseViewCount($sqlViewCountResult["items_view_count"], $getItemId);
 }
 ?>

@@ -12,11 +12,15 @@
 			{% if items is defined %}
 				{% for item in items %}
 					<div class="px-2 col-10 col-lg-4 mx-auto mx-lg-0 my-2"><div class="card"><div class="card-body row"><div class="col-9"><form method="GET" action="item.php"><input type="hidden" name="item_id" value="{{ item.item_id }}"><h4 class="m-0" class="card-title"><input type="submit" class="m-0 p-0 border-0 bg-white" value="{{ item.item_name }}"></h4></form><p class="my-2" style="font-size: 15px;">CATEGORY: {{ item.category_name }}</p><p class="my-2" style="font-size: 15px;">SIZE: {{ item.size }}</p></div><div class="col-3 d-flex align-items-center justify-content-center"><div><div class="position-absolute p-3 border rounded" style="display: none; background: #fff; margin-top: 46px; z-index: 111;"><form method="get" action="./include/add_item_to_list.inc.php"><input type="hidden" name="item_id" value="{{ item.item_id }}">
-					{% if lists is not null %}
-						{% for item in lists %}
-							<input type='checkbox' name='item_name_{{ item.list_name }}' value='{{ item.list_id }}'>  <label>{{ item.list_name }}</label><br>
-						{% endfor %}
-						<input type='submit' class='mt-2 btn btn-primary' value='Add to list'>
+					{% if isLogged is defined %}
+						{% if lists is defined %}
+							{% for item in lists %}
+								<input type='checkbox' name='item_name_{{ item.list_name }}' value='{{ item.list_id }}'>  <label>{{ item.list_name }}</label><br>
+							{% endfor %}
+							<input type='submit' class='mt-2 btn btn-primary' value='Add to list'>
+						{% else %}
+							<strong>You don't have any lists</strong>
+						{% endif %}
 					{% else %}
 						<strong>You are not logged in</strong>
 					{% endif %}
