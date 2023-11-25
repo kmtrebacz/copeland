@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 08, 2023 at 12:53 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: Lis 25, 2023 at 01:14 PM
+-- Wersja serwera: 10.4.32-MariaDB
+-- Wersja PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categories`
+-- Struktura tabeli dla tabeli `categories`
 --
 
 CREATE TABLE `categories` (
@@ -66,7 +66,7 @@ INSERT INTO `categories` (`category_id`, `category_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `items`
+-- Struktura tabeli dla tabeli `items`
 --
 
 CREATE TABLE `items` (
@@ -82,7 +82,7 @@ CREATE TABLE `items` (
 --
 
 INSERT INTO `items` (`item_id`, `item_name`, `category_id`, `size`, `items_view_count`) VALUES
-(1, 'PDP Concept', 1, '22 14 8,10,12,14,16', 9),
+(1, 'PDP Concept', 1, '22 14 8,10,12,14,16', 14),
 (2, 'Zildjian K Custom Dark Hi-Hat', 21, '14', 4),
 (3, 'Zildjian K Custom Dark Crash', 19, '16', 5),
 (4, 'Zildjian K Custom Dark Ride', 20, '20', 3),
@@ -91,7 +91,7 @@ INSERT INTO `items` (`item_id`, `item_name`, `category_id`, `size`, `items_view_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `lists`
+-- Struktura tabeli dla tabeli `lists`
 --
 
 CREATE TABLE `lists` (
@@ -106,10 +106,11 @@ CREATE TABLE `lists` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `list_items`
+-- Struktura tabeli dla tabeli `list_items`
 --
 
 CREATE TABLE `list_items` (
+  `id_list_items` int(11) NOT NULL,
   `list_id` int(11) DEFAULT NULL,
   `item_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -117,7 +118,7 @@ CREATE TABLE `list_items` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktura tabeli dla tabeli `users`
 --
 
 CREATE TABLE `users` (
@@ -131,38 +132,39 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Indexes for dumped tables
+-- Indeksy dla zrzutów tabel
 --
 
 --
--- Indexes for table `categories`
+-- Indeksy dla tabeli `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`category_id`);
 
 --
--- Indexes for table `items`
+-- Indeksy dla tabeli `items`
 --
 ALTER TABLE `items`
   ADD PRIMARY KEY (`item_id`),
   ADD KEY `category_id` (`category_id`);
 
 --
--- Indexes for table `lists`
+-- Indeksy dla tabeli `lists`
 --
 ALTER TABLE `lists`
   ADD PRIMARY KEY (`list_id`),
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `list_items`
+-- Indeksy dla tabeli `list_items`
 --
 ALTER TABLE `list_items`
+  ADD PRIMARY KEY (`id_list_items`),
   ADD KEY `list_id` (`list_id`),
   ADD KEY `item_id` (`item_id`);
 
 --
--- Indexes for table `users`
+-- Indeksy dla tabeli `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`);
@@ -187,13 +189,19 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `lists`
 --
 ALTER TABLE `lists`
-  MODIFY `list_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `list_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `list_items`
+--
+ALTER TABLE `list_items`
+  MODIFY `id_list_items` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
