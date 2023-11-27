@@ -21,6 +21,6 @@ $dbResultItems = dbQuery("SELECT items.item_id, items.item_name, categories.cate
 $template = $twig->load("home.twig");
 print($template->render([
 	"isLogged" => isset($_SESSION["userId"]),
-	"lists"    => isset($dbResultLists) ? $dbResultLists : NULL,
+	"lists"    => $dbResultLists ?? NULL,
 	"items"    => $dbResultItems,
 ]));

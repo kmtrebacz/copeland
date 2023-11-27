@@ -21,6 +21,6 @@ function errorHandler() {
 
 $template = $twig->load("login.twig");
 print($template->render([
-	"isLogged" => isset($_SESSION["userId"]) ? true : false,
+	"isLogged" => isset($_SESSION["userId"]),
 	"error"    => errorHandler(),
 ]));

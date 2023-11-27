@@ -12,6 +12,6 @@ $resultItems = dbQuery("SELECT lists.list_name, lists.is_public FROM lists WHERE
 
 $template = $twig->load("my_lists.twig");
 print($template->render([
-	"isLogged" => isset($_SESSION["userId"]) ? true : false,
+	"isLogged" => isset($_SESSION["userId"]),
 	"lists"    => $resultItems,
 ]));

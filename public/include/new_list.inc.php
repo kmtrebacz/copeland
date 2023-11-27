@@ -20,7 +20,7 @@ $resultUserId = $dbResult["user_id"];
 
 $dbResult = dbQuery("INSERT INTO `lists`(`user_id`, `list_name`, `is_public`) VALUES (?, ?, ?);", [$resultUserId, $postListName, $listPublicChecked]);
 
-if ($stmt === NULL) {
+if ($dbResult === NULL) {
 	header("location: ./../create_list.php?error=none");
 } else {
 	header("location: ./../create_list.php?error=stmtfailed");

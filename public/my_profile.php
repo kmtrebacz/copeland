@@ -12,6 +12,6 @@ $result = dbQuery("SELECT * FROM users WHERE username = ?", [$userId]);
 
 $template = $twig->load("my_profile.twig");
 print($template->render([
-	"isLogged" => isset($_SESSION["userId"]) ? true : false,
+	"isLogged" => isset($_SESSION["userId"]),
 	"info"    => $result,
 ]));

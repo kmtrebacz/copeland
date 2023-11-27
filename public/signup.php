@@ -35,6 +35,6 @@ function errorHandler() {
 
 $template = $twig->load("signup.twig");
 print($template->render([
-	"isLogged" => isset($_SESSION["userId"]) ? true : false,
+	"isLogged" => isset($_SESSION["userId"]),
 	"error"    => errorHandler(),
 ]));

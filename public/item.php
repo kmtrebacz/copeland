@@ -35,15 +35,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	$template = $twig->load("item.twig");
 	print($template->render([
 		"isLogged"   => isset($_SESSION["userId"]),
-		"lists"      => isset($dbResultLists) ? $dbResultLists : NULL,
+		"lists"      => $dbResultLists ?? NULL,
 		"name"       => $resultItemName,
 		"category"   => convertToTitleCase($resultItemCategory),
 		"size"       => $resultItemSize,
-		"itemId"     => isset($_SESSION["userId"]) ? $_SESSION["userId"] : false,
+		"itemId"     => $_SESSION["userId"] ?? false,
 	]));
 
 	$sqlViewCountResult = dbQuery("SELECT items.items_view_count FROM items WHERE items.item_name = ? AND items.size = ? LIMIT 1", [$resultItemName, $resultItemSize]);
 
-	 increaseViewCount($sqlViewCountResult["items_view_count"], $getItemId);
+	increaseViewCount($sqlViewCountResult["items_view_count"], $getItemId);
 }
 ?>
