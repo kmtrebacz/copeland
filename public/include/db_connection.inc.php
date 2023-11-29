@@ -18,7 +18,7 @@ function dbConnect() {
      return $db;
 }
 
-function dbQuery($sql, $params = []) {
+function dbQuery($sql, $params = [], $returningArray = false) {
 	global $db;
 
 	try {
@@ -29,10 +29,9 @@ function dbQuery($sql, $params = []) {
 		die("Preparing the query failed: " . $e->getMessage());
 	}
 
-	if($stmt->rowCount() === 1) {
-		return $stmt->fetch(PDO::FETCH_ASSOC);
-	} else if($stmt->rowCount() > 1) {
-		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	if($stmt->rowCount() > 0) {
+		if ($returningArray) return $stmt->fetch(PDO::FETCH_ASSOC);
+		else return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	} else {
 		return null;
 	}
