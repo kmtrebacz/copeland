@@ -8,7 +8,7 @@
 
 {% block content %}
     <div class="row">
-        {% if lists is defined %}
+        {% if lists is not null %}
             {% for list in lists %}
                 <div class="px-2 col-10 col-lg-4 mx-auto mx-lg-0 my-2"><div class="card"><div class="card-body"><h4 class="m-0" class="card-title">{{ list.list_name }}</h4><p class="my-2" style="font-size: 15px;">
                 {% if list.is_public == 0 %}
@@ -16,10 +16,10 @@
                 {% else %}
                     <i class="bi bi-globe2"></i> Public
                 {% endif %}
-                </p><form method="get" action="list.php"><input type="hidden" name="list_name" value="{{ list.list_name }}"><input type="hidden" name="is_public" value="{{ list.is_public }}"><a class="link-offset-1 mt-1" class="card-title"><input type="submit" class="m-0 p-0 border-0 text-primary bg-white text-decoration-underline" value="See more"></a></form></div></div></div> 
+                </p><form method="get" action="list.php"><input type="hidden" name="list_id" value="{{ list.list_id }}"><a class="link-offset-1 mt-1" class="card-title"><input type="submit" class="m-0 p-0 border-0 text-primary bg-white text-decoration-underline" value="See more"></a></form></div></div></div> 
             {% endfor %}
         {% else %}
-			<p>You don't have any lists</p>
+			<h3 style="text-align: center;">You don't have any lists</h3>
 		{% endif %}
     </div>
 {% endblock %}
