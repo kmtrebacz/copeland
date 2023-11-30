@@ -4,18 +4,18 @@ session_start();
 require_once "./../vendor/autoload.php";
 require_once "./include/header.inc.php";
 
-function errorHandler() {
-	if (isset($_GET["error"])) {
-		switch (isset($_GET["error"])) {
-			case $_GET["error"] == "wronglogin":
-				return "Wrong login!";
+$errors = [
+	"wronglogin" => "Wrong login!";
+	"wrongpass"  => "Wrong password!";
+	"none"       => "You have logged in!";
+];
 
-			case $_GET["error"] == "wrongpass":
-				return "Wrong password!";
-
-			case $_GET["error"] == "none":
-				return "You have logged in!";
-		}
+function errorHandler() 
+{
+	if (isset($_GET["error"])) 
+	{
+		$errorMessage = $_GET["error"];
+		return $errors[$errorMessage];
 	}
 }
 

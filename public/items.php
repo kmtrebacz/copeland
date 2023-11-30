@@ -4,13 +4,15 @@ session_start();
 require_once "./../vendor/autoload.php";
 require_once "./include/header.inc.php";
 
-function convertToTitleCase($input) {
+function convertToTitleCase($input) 
+{
 	$words = explode("_", $input);
 	$formattedWords = array_map("ucwords", $words);
 	return implode(" ", $formattedWords);
 }
 
-if (isset($_SESSION["userId"])) {
+if (isset($_SESSION["userId"])) 
+{
 	$sessionLoggeduserId = $_SESSION["userId"];
 
 	$dbResultLists = dbQuery("SELECT lists.list_id, lists.list_name FROM lists JOIN users ON users.user_id = lists.user_id WHERE users.username= ?", [$sessionLoggeduserId]);

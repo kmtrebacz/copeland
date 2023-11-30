@@ -6,30 +6,22 @@ if (isset($_SESSION["userId"])) header("location: ./../index.php");
 require_once "./../vendor/autoload.php";
 require_once "./include/header.inc.php";
 
-function errorHandler() {
-	if (isset($_GET["error"])) {
-		switch (isset($_GET["error"])) {
-			case $_GET["error"] == "invaliduid":
-				return "Choose a proper username!";
+$errors = [
+	"invaliduid"         => "Choose a proper email!",
+	"invalidemail"       => "Choose a proper email!",
+	"passwordsdontmatch" => "Passwords don't match!",
+	"usernametaken"      => "Username have was taken!",
+	"emailwasused"       => "This email address is already associated with an existing account!",
+	"stmtfaild"          => "Somethink went wrong, try again!",
+	"none"               => "You have signed up!",
+];
 
-			case $_GET["error"] == "invalidemail":
-				return "Choose a proper email!";
-
-			case $_GET["error"] == "passwordsdontmatch":
-				return "Passwords don't match!";
-
-			case $_GET["error"] == "usernametaken":
-				return "Username have was taken!";
-
-			case $_GET["error"] == "emailwasused":
-				return "This email address is already associated with an existing account!";
-
-			case $_GET["error"] == "stmtfaild":
-				return "Somethink went wrong, try again!";
-
-			case $_GET["error"] == "none":
-				return "You have signed up!";
-		}
+function errorHandler() 
+{
+	if (isset($_GET["error"])) 
+	{
+		$errorMessage = $_GET["error"];
+		return $errors[$errorMessage];
 	}
 }
 

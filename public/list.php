@@ -4,7 +4,8 @@ session_start();
 require_once "./../vendor/autoload.php";
 require_once "./include/header.inc.php";
 
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
+if (isset($_GET["submit"]) && $_SERVER["REQUEST_METHOD"] == "GET") 
+{
 	$getListName     = $_GET["list_name"];
 	$getListIsPublic = $_GET["is_public"];
 

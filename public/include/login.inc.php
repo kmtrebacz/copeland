@@ -1,5 +1,6 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+if (isset($_GET["submit"]) && $_SERVER["REQUEST_METHOD"] === "POST") 
+{
 	require_once "./db_connection.inc.php";
 	require_once "./functions.inc.php";
 
@@ -10,7 +11,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 	loginUser($name, $pass);
 }
-else {
+else 
+{
 	header("location: ./../login.php");
 	exit();
 }

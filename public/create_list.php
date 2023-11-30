@@ -4,9 +4,12 @@ session_start();
 require_once "./../vendor/autoload.php";
 require_once "./include/header.inc.php";
 
-function errorHandler() {
-	if (isset($_GET["error"])) {
-		switch (isset($_GET["error"])) {
+function errorHandler() 
+{
+	if (isset($_GET["error"])) 
+	{
+		switch (isset($_GET["error"])) 
+		{
 			case $_GET["error"] == "stmtfailed":
 				return "Somethink goes wrong! Try again later.";
 
