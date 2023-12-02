@@ -37,8 +37,8 @@ function dbQuery($sql, $params = [], $returningArray = false)
 
 	if($stmt->rowCount() > 0) 
 	{
-		if ($returningArray) return $stmt->fetchAll(PDO::FETCH_ASSOC);
-		else return $stmt->fetch(PDO::FETCH_ASSOC);
+		if ($returningArray) return $stmt->fetch(PDO::FETCH_ASSOC);
+		else return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	} 
 	else 
 	{
