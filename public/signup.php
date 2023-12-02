@@ -18,6 +18,8 @@ $errors = [
 
 function errorHandler() 
 {
+     global $errors;
+
 	if (isset($_GET["error"])) 
 	{
 		$errorMessage = $_GET["error"];
