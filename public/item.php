@@ -15,11 +15,10 @@ function increaseViewCount($value, $id)
 {
 	global $db;
 	$value = (int)$value + 1;
-	$sqlViewCountUpdate = "UPDATE items SET items.items_view_count=$value WHERE items.item_id = $id";
-	dbQuery("UPDATE items SET items.items_view_count=$value WHERE items.item_id = ?", [$id]);
+	dbQuery("UPDATE items SET items.items_view_count = ? WHERE items.item_id = ?", [$value, $id]);
 }
 
-if (isset($_GET["submit"]) && $_SERVER["REQUEST_METHOD"] == "GET") 
+if ($_SERVER["REQUEST_METHOD"] ===  "GET") 
 {
 	$getItemId = $_GET["item_id"];
 
@@ -46,7 +45,7 @@ if (isset($_GET["submit"]) && $_SERVER["REQUEST_METHOD"] == "GET")
 		"itemId"     => $_SESSION["userId"] ?? false,
 	]));
 
-	$sqlViewCountResult = dbQuery("SELECT items.items_view_count FROM items WHERE items.item_name = ? AND items.size = ? LIMIT 1", [$resultItemName, $resultItemSize]);
+	$sqlViewCountResult = dbQuery("SELECT items.items_view_count FROM items WHERE items.item_name = ? AND items.size = ? LIMIT 1", [$resultItemName, $resultItemSize], true);
 
 	increaseViewCount($sqlViewCountResult["items_view_count"], $getItemId);
 }
