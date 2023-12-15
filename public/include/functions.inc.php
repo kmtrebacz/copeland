@@ -82,20 +82,21 @@ function loginUser($name, $pass)
 		exit();
 	}
 
-	$dbResult = dbQuery("SELECT password FROM users WHERE username = ? LIMIT 1", [$name]);
-	if (sizeOf($dbResult) === 1) $passHash = $dbResult["password"];
+     $dbResult = dbQuery("SELECT password FROM users WHERE username = ? LIMIT 1", [$name], true);
+	$passHash = $dbResult["password"];
 	$checkPass = password_verify($pass, $passHash);
 
-	if ($checkPass === false) 
-	{
-	    header("location: ./../login.php?error=wrongpass");
-	    exit();
-	}
-	else if($checkPass === true)  
+     
+	if($checkPass)  
 	{
 		session_start();
 		$_SESSION["userId"] = $name;
 		header("location: ./../index.php");
 		exit();
+     }
+     else
+	{
+	    header("location: ./../login.php?error=wrongpass");
+	    exit();
 	}
 }

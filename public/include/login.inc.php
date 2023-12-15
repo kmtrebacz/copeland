@@ -1,5 +1,5 @@
 <?php
-if (isset($_GET["submit"]) && $_SERVER["REQUEST_METHOD"] === "POST") 
+if ($_SERVER["REQUEST_METHOD"] === "POST") 
 {
 	require_once "./db_connection.inc.php";
 	require_once "./functions.inc.php";
