@@ -8,10 +8,10 @@ require_once "./include/header.inc.php";
 
 $userId = $_SESSION["userId"];
 
-$result = dbQuery("SELECT * FROM users WHERE username = ?", [$userId]);
+$dbResult = dbQuery("SELECT * FROM users WHERE username = ?", [$userId], true);
 
 $template = $twig->load("my_profile.twig");
 print($template->render([
 	"isLogged" => isset($_SESSION["userId"]),
-	"info"    => $result,
+	"info"     => $dbResult,
 ]));
