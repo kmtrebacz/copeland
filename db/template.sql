@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Lis 25, 2023 at 01:14 PM
--- Wersja serwera: 10.4.32-MariaDB
--- Wersja PHP: 8.2.12
+-- Generation Time: Dec 18, 2023 at 03:31 PM
+-- Wersja serwera: 10.4.28-MariaDB
+-- Wersja PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -74,19 +74,20 @@ CREATE TABLE `items` (
   `item_name` varchar(100) NOT NULL,
   `category_id` int(11) DEFAULT NULL,
   `size` varchar(100) NOT NULL,
-  `items_view_count` int(11) NOT NULL DEFAULT 1
+  `items_view_count` int(11) NOT NULL DEFAULT 1,
+  `img_src` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `items`
 --
 
-INSERT INTO `items` (`item_id`, `item_name`, `category_id`, `size`, `items_view_count`) VALUES
-(1, 'PDP Concept', 1, '22 14 8,10,12,14,16', 14),
-(2, 'Zildjian K Custom Dark Hi-Hat', 21, '14', 4),
-(3, 'Zildjian K Custom Dark Crash', 19, '16', 5),
-(4, 'Zildjian K Custom Dark Ride', 20, '20', 3),
-(5, 'Zildjian K Custom Dark Crash', 19, '18', 5);
+INSERT INTO `items` (`item_id`, `item_name`, `category_id`, `size`, `items_view_count`, `img_src`) VALUES
+(1, 'PDP Concept Maple CM7 Silver to Black Fade', 1, '22 14 8,10,12,14,16', 14, NULL),
+(2, 'Zildjian K Custom Dark Hi-Hat', 21, '14', 4, NULL),
+(3, 'Zildjian K Custom Dark Crash', 19, '16', 5, NULL),
+(4, 'Zildjian K Custom Dark Ride', 20, '20', 3, NULL),
+(5, 'Zildjian K Custom Dark Crash', 19, '18', 5, NULL);
 
 -- --------------------------------------------------------
 

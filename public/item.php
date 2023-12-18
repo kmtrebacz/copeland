@@ -1,15 +1,6 @@
 <?php
-session_start();
-
 require_once "./../vendor/autoload.php";
 require_once "./include/header.inc.php";
-
-function convertToTitleCase($input) 
-{
-	$words = explode("_", $input);
-	$formattedWords = array_map("ucwords", $words);
-	return implode(" ", $formattedWords);
-}
 
 function increaseViewCount($value, $id) 
 {
@@ -34,19 +25,20 @@ if ($_SERVER["REQUEST_METHOD"] ===  "GET")
 	$resultItemName     = $resultItems["item_name"];
 	$resultItemCategory = $resultItems["category_name"];
 	$resultItemSize     = $resultItems["size"];
+	$resultImgSrc       = $resultItems["img_src"];
 
 	$template = $twig->load("item.twig");
 	print($template->render([
 		"isLogged"   => isset($_SESSION["userId"]),
 		"lists"      => $dbResultLists ?? NULL,
 		"name"       => $resultItemName,
-		"category"   => convertToTitleCase($resultItemCategory),
+		"category"   => $resultItemCategory,
 		"size"       => $resultItemSize,
+		"imgIrc"    => $resultImgSrc,
 		"itemId"     => $_SESSION["userId"] ?? false,
 	]));
 
 	$sqlViewCountResult = dbQuery("SELECT items.items_view_count FROM items WHERE items.item_name = ? AND items.size = ? LIMIT 1", [$resultItemName, $resultItemSize], true);
-
 	increaseViewCount($sqlViewCountResult["items_view_count"], $getItemId);
 }
 ?>
