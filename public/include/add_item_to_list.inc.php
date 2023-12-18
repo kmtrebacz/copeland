@@ -1,8 +1,7 @@
 <?php
-session_start();
-
 require_once "./db_connection.inc.php";
 
+session_start();
 $db = dbConnect();
 
 if (isset($_GET["submit"]) && $_SERVER["REQUEST_METHOD"] == "GET") 

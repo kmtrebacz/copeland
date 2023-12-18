@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 if (isset($_SESSION["userId"])) header("location: ./../index.php");
 
 require_once "./../vendor/autoload.php";
@@ -16,19 +14,8 @@ $errors = [
 	"none"               => "You have signed up!",
 ];
 
-function errorHandler() 
-{
-     global $errors;
-
-	if (isset($_GET["error"])) 
-	{
-		$errorMessage = $_GET["error"];
-		return $errors[$errorMessage];
-	}
-}
-
 $template = $twig->load("signup.twig");
 print($template->render([
 	"isLogged" => isset($_SESSION["userId"]),
-	"error"    => errorHandler(),
+	"error"    => errorHandler($errors),
 ]));

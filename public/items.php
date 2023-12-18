@@ -1,15 +1,6 @@
 <?php
-session_start();
-
 require_once "./../vendor/autoload.php";
 require_once "./include/header.inc.php";
-
-function convertToTitleCase($input) 
-{
-	$words = explode("_", $input);
-	$formattedWords = array_map("ucwords", $words);
-	return implode(" ", $formattedWords);
-}
 
 if (isset($_SESSION["userId"])) 
 {
