@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 18, 2023 at 03:31 PM
+-- Generation Time: Dec 19, 2023 at 09:20 AM
 -- Wersja serwera: 10.4.28-MariaDB
 -- Wersja PHP: 8.2.4
 
@@ -37,31 +37,31 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`category_id`, `category_name`) VALUES
-(1, 'drum_set'),
+(1, 'drum set'),
 (2, 'snare'),
 (3, 'drumsticks'),
-(4, 'bass_drum_pedal'),
-(5, 'drum_throne'),
-(6, 'straight_stand'),
-(7, 'boom_stand'),
-(8, 'snare_stand'),
-(9, 'hi_hat_stand'),
-(10, 'combined_stand'),
-(11, 'tom_stand'),
-(12, 'multi_clamp'),
-(13, 'tom_holder'),
-(14, 'drum_racks'),
-(15, 'snare_drumhead'),
-(16, 'tom_drumhead'),
-(17, 'bass_drum_drumhead'),
-(18, 'splash_cymbal'),
-(19, 'crash_cymbal'),
-(20, 'ride_cymbal'),
-(21, 'hi_hat_cymbal'),
+(4, 'bass drum pedal'),
+(5, 'drum throne'),
+(6, 'straight stand'),
+(7, 'boom stand'),
+(8, 'snare stand'),
+(9, 'hi hat stand'),
+(10, 'combined stand'),
+(11, 'tom stand'),
+(12, 'multi clamp'),
+(13, 'tom holder'),
+(14, 'drum racks'),
+(15, 'snare drumhead'),
+(16, 'tom drumhead'),
+(17, 'bass drum drumhead'),
+(18, 'splash cymbal'),
+(19, 'crash cymbal'),
+(20, 'ride cymbal'),
+(21, 'hi hat cymbal'),
 (22, 'china_cymbal'),
-(23, 'bell_cymbal'),
-(24, 'fx_cymbal'),
-(25, 'gong_cymbal');
+(23, 'bell cymbal'),
+(24, 'fx cymbal'),
+(25, 'gong cymbal');
 
 -- --------------------------------------------------------
 
@@ -75,7 +75,7 @@ CREATE TABLE `items` (
   `category_id` int(11) DEFAULT NULL,
   `size` varchar(100) NOT NULL,
   `items_view_count` int(11) NOT NULL DEFAULT 1,
-  `img_src` varchar(255) DEFAULT NULL
+  `img_src` varchar(255) DEFAULT 'noitem.jpg'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -83,11 +83,11 @@ CREATE TABLE `items` (
 --
 
 INSERT INTO `items` (`item_id`, `item_name`, `category_id`, `size`, `items_view_count`, `img_src`) VALUES
-(1, 'PDP Concept Maple CM7 Silver to Black Fade', 1, '22 14 8,10,12,14,16', 14, NULL),
-(2, 'Zildjian K Custom Dark Hi-Hat', 21, '14', 4, NULL),
-(3, 'Zildjian K Custom Dark Crash', 19, '16', 5, NULL),
-(4, 'Zildjian K Custom Dark Ride', 20, '20', 3, NULL),
-(5, 'Zildjian K Custom Dark Crash', 19, '18', 5, NULL);
+(1, 'PDP Concept Maple CM7 Silver to Black Fade', 1, '22 14 8,10,12,14,16', 39, 'pdp-concept-maple-cm7-silver-to-black-fade.png'),
+(2, 'Zildjian K Custom Dark Hi-Hat', 21, '14', 9, 'Zildjian_K_Custom_Dark_Hi-Hat_14.jpg'),
+(3, 'Zildjian K Custom Dark Crash', 19, '16', 19, 'Zildjian_K_Custom_Dark_Crash_16.jpg'),
+(4, 'Zildjian K Custom Dark Ride', 20, '20', 10, 'Zildjian_K_Custom_Dark_Ride_20.jpg'),
+(5, 'Zildjian K Custom Dark Crash', 19, '18', 9, 'Zildjian_K_Custom_Dark_Crash_18.jpg');
 
 -- --------------------------------------------------------
 
@@ -103,6 +103,13 @@ CREATE TABLE `lists` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `lists_view_count` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `lists`
+--
+
+INSERT INTO `lists` (`list_id`, `user_id`, `list_name`, `is_public`, `created_at`, `lists_view_count`) VALUES
+(17, 1, 'lukasz tatarek', 0, '2023-12-19 08:10:45', 0);
 
 -- --------------------------------------------------------
 
@@ -131,6 +138,13 @@ CREATE TABLE `users` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `user_view_count` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`user_id`, `username`, `password`, `email`, `created_at`, `updated_at`, `user_view_count`) VALUES
+(1, 'kt', '$2y$10$YlKGc43p1opiTyJ0cswgl.w0k9eC7uezru40.Q0HG4esrD6.nXp3S', 'kt@kt.kt', '2023-12-19 07:33:11', '2023-12-19 07:33:11', 0);
 
 --
 -- Indeksy dla zrzutów tabel
@@ -190,7 +204,7 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `lists`
 --
 ALTER TABLE `lists`
-  MODIFY `list_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `list_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `list_items`
@@ -202,7 +216,7 @@ ALTER TABLE `list_items`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
