@@ -4,19 +4,19 @@ require_once "./db_connection.inc.php";
 session_start();
 $db = dbConnect();
 
-if (isset($_GET["submit"]) && $_SERVER["REQUEST_METHOD"] == "GET") 
+if (isset($_POST["submit"]) && $_SERVER["REQUEST_METHOD"] == "POST") 
 {
 	$postListName      = $_POST["list_name"];
-	$postListPublic    = $_POST["list_public"];
+	$postListPublic    = $_POST["list_public"] ?? NULL;
 	$listPublicChecked = 0;
 	$userId            = $_SESSION["userId"];
 
-	if (isset($_POST["list_public"]) && $_POST["list_public"] == "on") 
+	if ($postListPublic == "on") 
 	{
 		$listPublicChecked = 1;
 	}
 
-	$dbResult = dbQuery("SELECT user_id FROM users WHERE username = ?;", [$userId]);
+	$dbResult = dbQuery("SELECT users.user_id FROM users WHERE users.username = ?;", [$userId], true);
 	$resultUserId = $dbResult["user_id"];
 	$dbResult = dbQuery("INSERT INTO `lists`(`user_id`, `list_name`, `is_public`) VALUES (?, ?, ?);", [$resultUserId, $postListName, $listPublicChecked]);
 
