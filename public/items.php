@@ -15,6 +15,6 @@ $template = $twig->load("items.twig");
 print($template->render([
 	"isLogged" => isset($_SESSION["userId"]),
 	"lists"    => $dbResultLists ?? NULL,
-	"items"    => $dbResultItems,
+	"items"    => $dbResultItems ?? NULL,
 ]));
 
