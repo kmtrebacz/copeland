@@ -17,6 +17,7 @@ function dbConnect()
 	{
 		die("Connection failed: " . $err->getMessage());
      }
+	 
 
      return $db;
 }

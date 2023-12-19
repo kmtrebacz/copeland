@@ -1,15 +1,13 @@
 <?php
 function invalidUid($name) 
 {
+	$result = true;
+
 	if (preg_match("/^[a-zA-Z0-9]{2,50}$/", $name)) 
 	{
 		$result = false;
 	}
-	else if ($name = "admin") 
-	{
-		$result = true;
-	}
-
+	
 	return $result;
 }
 

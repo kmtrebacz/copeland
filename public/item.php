@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] ===  "GET")
 		$dbResultLists = dbQuery("SELECT lists.list_id, lists.list_name FROM lists JOIN users ON users.user_id = lists.user_id WHERE users.username= ?", [$sessionLoggeduserId]);
 	}
 
-	$resultItems = dbQuery("SELECT items.item_name, categories.category_name, items.size FROM items JOIN categories ON categories.category_id = items.category_id WHERE items.item_id = ? LIMIT 1;", [$getItemId], true);
+	$resultItems = dbQuery("SELECT items.item_name, categories.category_name, items.size, items.img_src FROM items JOIN categories ON categories.category_id = items.category_id WHERE items.item_id = ? LIMIT 1;", [$getItemId], true);
 
 	$resultItemName     = $resultItems["item_name"];
 	$resultItemCategory = $resultItems["category_name"];
@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] ===  "GET")
 		"name"       => $resultItemName,
 		"category"   => $resultItemCategory,
 		"size"       => $resultItemSize,
-		"imgIrc"    => $resultImgSrc,
+		"imgSrc"     => $resultImgSrc,
 		"itemId"     => $_SESSION["userId"] ?? false,
 	]));
 
