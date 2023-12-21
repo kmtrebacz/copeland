@@ -4,7 +4,7 @@ require_once "./db_connection.inc.php";
 session_start();
 $db = dbConnect();
 
-if (isset($_GET["submit"]) && $_SERVER["REQUEST_METHOD"] == "GET") 
+if ($_SERVER["REQUEST_METHOD"] == "GET") 
 {
 	$listsId = [];
 	$itemId = $_GET["item_id"];
@@ -26,15 +26,9 @@ if (isset($_GET["submit"]) && $_SERVER["REQUEST_METHOD"] == "GET")
 
 	foreach ($listsId as $key => $value) 
 	{
-		$result = dbQuery("INSERT INTO `list_items`(`list_id`, `item_id`) VALUES (?, ?)", [$value, $itemId]);
- 
-		if ($result === NULL) 
-		{
-			header("location: ./../signup.php?error=none");
-		} 
-		else 
-		{
-			header("location: ./../signup.php?error=stmtfailed");
-		}
+		$result = dbQuery("INSERT INTO list_items(list_id, item_id) VALUES (?, ?)", [$value, $itemId]);
 	}
+
+	header("location: ./../index.php?error=none");
+	exit();
 }
