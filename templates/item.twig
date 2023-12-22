@@ -13,13 +13,11 @@
 			{% for item in lists %}
 				<input type='checkbox' name='item_name_{{ item.list_name }}' value='{{ item.list_id }}'>  <label>{{ item.list_name }}</label><br>
 			{% endfor %}
-				<input type='submit' class='mt-2 btn btn-primary' value='Add to list'>
-			{% else %}
-				<strong>You don't have any lists</strong>
-			{% endif %}
+			input type='submit' class='mt-2 btn btn-primary' value='Add to list'>
 		{% else %}
-			<strong>You are not logged in</strong>
+			<strong>You don't have any lists</strong>
 		{% endif %}
+	{% else %}
 		<strong>You are not logged in</strong>
 	{% endif %}
     </form></div><div class="popover" data-on="0"><button type="button" class="btn btn-primary">+ Add to list</button></div></div></div></div></div></div></section>
