@@ -8,10 +8,18 @@
 
 {% block content %}
 	<section class="py-5"><div class="container px-4 px-lg-5 my-5"><div class="row gx-4 gx-lg-5 align-items-center"><div class="col-md-12"><h1 class="display-5 fw-bolder">{{ listName }}</h1><h4 class="my-2">
-	{% if isListPrivate is defined %}
+	{% if isPublic == 0 %}
 		<i class="bi bi-lock"></i> Private
 	{% else %}
 		<i class="bi bi-globe2"></i> Public
 	{% endif %}
-	</h4><div class="d-flex"></div></div></div></div></section>
+	</h4><div class="d-flex"></div></div></div>
+     {% if itemsInList|length > 0 %}
+	     {% for item in itemsInList %}
+               <div class="card mb-3 w-100"><div class="row g-0"><div class="col-md-2"><div class="rounded-start ratio ratio-1x1" style="background-image: url(./itemmedia/{{ item.img_src }}); background-repeat: no-repeat; background-size: contain; background-position: center;"></div></div><div class="col-md-8"><div class="card-body"><h2 class="m-0" class="card-title"><a href="item.php?item_id={{ item.item_id }}" class="text-decoration-none text-dark">{{ item.item_name }}</a></h2><p class="my-2" style="font-size: 15px;">CATEGORY: {{ item.category_name }}</p><p class="my-2" style="font-size: 15px;">SIZE: {{ item.size }}</p></div></div></div></div>
+		{% endfor %}
+	{% else %}
+		<strong>List in empty :(</strong>
+	{% endif %}
+     </div></section>
 {% endblock %}
