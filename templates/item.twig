@@ -13,7 +13,7 @@
 			{% for item in lists %}
 				<input type='checkbox' name='item_name_{{ item.list_name }}' value='{{ item.list_id }}'>  <label>{{ item.list_name }}</label><br>
 			{% endfor %}
-			input type='submit' class='mt-2 btn btn-primary' value='Add to list'>
+			<input type='submit' class='mt-2 btn btn-primary' value='Add to list'>
 		{% else %}
 			<strong>You don't have any lists</strong>
 		{% endif %}
