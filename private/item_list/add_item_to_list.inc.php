@@ -1,16 +1,9 @@
 <?php
-require_once "./db_connection.inc.php";
+require_once __DIR__ . "/../db_connection.inc.php";
+require_once __DIR__ . "/item_list_functions.inc.php";
 
 session_start();
 $db = dbConnect();
-
-function checkUser($listId): bool
-{
-     $dbResult = dbQuery("SELECT users.username FROM lists JOIN users ON users.user_id = lists.user_id WHERE lists.list_id = ? LIMIT 1;", [$listId], true);
-
-     if ($dbResult["username"] == $_SESSION["userId"]) return true;
-     else return false;
-}
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") 
 {
@@ -40,6 +33,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET")
           }
 	}
 
-	header("location: ./../index.php?error=none");
+	header("location: ".__DIR__."/../../public/index.php?error=none");
 	exit();
 }

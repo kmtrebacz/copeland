@@ -1,5 +1,5 @@
 <?php
-require_once "./db_connection.inc.php";
+require_once __DIR__ . "/../db_connection.inc.php";
 
 session_start();
 $db = dbConnect();
@@ -20,5 +20,5 @@ if (isset($_POST["submit"]) && $_SERVER["REQUEST_METHOD"] == "POST")
 	$resultUserId = $dbResult["user_id"];
 	$dbResult = dbQuery("INSERT INTO `lists`(`user_id`, `list_name`, `is_public`) VALUES (?, ?, ?);", [$resultUserId, $postListName, $listPublicChecked]);
 
-	header("location: ./../create_list.php?error=none");
+	header("location: ".__DIR__."/../../public/create_list.php?error=none");
 }

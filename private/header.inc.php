@@ -1,5 +1,5 @@
 <?php
-require_once "./include/db_connection.inc.php";
+require_once __DIR__ . "/db_connection.inc.php";
 
 session_start();
 $db = dbConnect();
@@ -13,7 +13,7 @@ function errorHandler($errors)
 	}
 }
 
-$loader = new \Twig\Loader\FilesystemLoader("./../templates/");
+$loader = new \Twig\Loader\FilesystemLoader(__DIR__ . "/templates/");
 $twig = new \Twig\Environment($loader, [
-	"cache" => "./../cache",
+	"cache" => __DIR__ . "/../cache/",
 ]);

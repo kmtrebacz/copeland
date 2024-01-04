@@ -65,7 +65,7 @@ function createUser($name, $pass, $email)
 
 	$dbResult = dbQuery("INSERT INTO users (username, password, email) VALUES (?, ?, ?)", [$name, $hashedPass, $email]);
  
-	if ($dbResult === NULL) header("location: ./../signup.php?error=none");
+	if ($dbResult === NULL) header("location: ".__DIR__."/../../public/signup.php?error=none");
 }
 
 function loginUser($name, $pass) 
@@ -76,7 +76,7 @@ function loginUser($name, $pass)
 
 	if ($uidExists === false) 
 	{
-		header("location: ./../login.php?error=wronglogin");
+		header("location: ".__DIR__."/../../public/login.php?error=wronglogin");
 		exit();
 	}
 
@@ -89,12 +89,12 @@ function loginUser($name, $pass)
 	{
 		session_start();
 		$_SESSION["userId"] = $name;
-		header("location: ./../index.php");
+		header("location: ".__DIR__."/../../public/index.php");
 		exit();
      }
      else
 	{
-	    header("location: ./../login.php?error=wrongpass");
+	    header("location: ".__DIR__."/../../public/login.php?error=wrongpass");
 	    exit();
 	}
 }

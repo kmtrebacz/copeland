@@ -1,8 +1,8 @@
 <?php
-if (isset($_SESSION["userId"])) header("location: ./../index.php");
+require_once __DIR__ . "/../vendor/autoload.php";
+require_once __DIR__ . "/../private/header.inc.php";
 
-require_once "./../vendor/autoload.php";
-require_once "./include/header.inc.php";
+if (isset($_SESSION["userId"])) header("location: /index.php");
 
 $errors = [
 	"invaliduid"         => "Choose a proper email!",
